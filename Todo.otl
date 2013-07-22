@@ -1,0 +1,12 @@
+Todo:
+	[√] Turn based play
+	[√] Implement game rules
+	[√] 100% Social Integration
+		[√] Github
+		[√] Facebook
+		[√] Google Plus
+	[√] User Sessions
+	[_] Player Settings
+	[_] Server side game move capturing
+	[_] Remote Player game with step replay
+	[_] Player seeks & searches

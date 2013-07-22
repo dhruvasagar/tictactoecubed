@@ -1,0 +1,42 @@
+{
+  "name": "TicTacToeCubed",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhruvasagar/TicTacToeCubed.git"
+  },
+  "scripts": {
+    "start": "coffee app.coffee"
+  },
+  "dependencies": {
+    "jade": "*",
+    "less": "*",
+    "nconf": "*",
+    "crypto": "*",
+    "express": "3.2.0",
+    "gravatar": "*",
+    "mongoose": "*",
+    "socket.io": "*",
+    "coffee-script": "*",
+    "connect-assets": "*",
+    "passport": "*",
+    "passport-github": "*",
+    "passport-facebook": "*",
+    "passport-google-oauth": "*"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-coffee": "*",
+    "mocha": "*",
+    "should": "*"
+  },
+  "engines": {
+    "node": "0.8.x"
+  },
+  "readme": "[Tic Tac Toe Cubed](https://github.com/dhruvasagar/tic_tac_toe_cubed)",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/dhruvasagar/TicTacToeCubed/issues"
+  }
+}

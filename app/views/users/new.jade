@@ -1,0 +1,58 @@
+extends ../layouts/layout
+
+block content
+  .span4.center
+    if user.errors
+      .alert.alert-block.alert-error
+        button.close(type='button', data-dismiss='alert') &times;
+        ul
+          for error, key in user.errors
+            li= capitalize(key) + ' ' + error.type
+    form.well(method='post', action='/users')
+      legend
+        small
+          a.pull-right(href='/sessions/new') login
+        span Sign Up
+
+      .social-logins
+        span Sign Up via : 
+        a.facebook(href='/auth/facebook')
+          span.icon-stack
+            i.icon-sign-blank.icon-stack-base
+            i.icon-facebook.icon-light
+        a.google(href='/auth/google')
+          span.icon-stack
+            i.icon-sign-blank.icon-stack-base
+            i.icon-google-plus.icon-light
+        a.github(href='/auth/github')
+          span.icon-stack
+            i.icon-sign-blank.icon-stack-base
+            i.icon-github-alt.icon-light
+
+      p.text-center - OR -
+
+      fieldset
+        .input-prepend.box-shadow
+          span.add-on.required
+            i.icon-user
+          input.span3(type='text', name='user[name]', required, value=user.name || '', placeholder='Enter Name', data-bind='value: name, valueUpdate: "afterkeydown"')
+
+        include fields
+
+        .input-prepend.box-shadow
+          span.add-on.required
+            i.icon-key
+          input.span3(type='password', name='user[passwordConfirmation]', required, onfocus='confirmPassword(document.getElementById("password"), this)', oninput='confirmPassword(document.getElementById("password"), this)', value=user.password_confirmation || '', placeholder='Confirm Password', data-bind='value: passwordConfirmation, valueUpdate: "afterkeydown"')
+
+      fieldset
+        button.btn.btn-primary(type='submit') Register
+
+block scripts
+  script(language='javascript', type='text/javascript')
+    function confirmPassword(password, passwordConfirmation) {
+      if( password.value !== passwordConfirmation.value) {
+        passwordConfirmation.setCustomValidity('Passwords must match.');
+      } else {
+        passwordConfirmation.setCustomValidity('');
+      }
+    }

@@ -1,0 +1,9 @@
+.input-prepend.box-shadow
+  span.add-on
+    i.icon-envelope
+  input.span3(type='email', name='user[email]', required, value=user.email || '', placeholder='Enter Email')
+
+.input-prepend.box-shadow
+  span.add-on.required
+    i.icon-key
+  input.span3#password(type='password', name='user[password]', required, pattern='.{6,}', title="Minimum 6 characters", value=user.password || '', placeholder='Enter Password', data-bind='value: password, valueUpdate: "afterkeydown"')

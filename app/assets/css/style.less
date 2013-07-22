@@ -1,0 +1,169 @@
+@import 'bootstrap.css';
+@import 'bootstrap-responsive.css';
+
+body {
+  padding-top: 60px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.clear {
+  clear: both;
+}
+
+.center {
+  float: none;
+  margin: 0 auto;
+}
+
+.social-logins {
+  font-size: 17px;
+  margin-bottom: 10px;
+
+  a.github {
+    color: #333333
+  }
+
+  a.google {
+    color: #cc3732;
+  }
+
+  a.facebook {
+    color: #3B5998;
+  }
+}
+
+.no-margin {
+  margin: 0;
+}
+
+span.add-on.required > .circle {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 100px;
+}
+
+span.add-on.required > .circle.red {
+  background-color: darkred;
+}
+
+span.add-on.required > .circle.green {
+  background-color: darkgreen;
+}
+
+.tictactoecubed {
+  .cubedlightbox {
+    float: left;
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .tictactoes {
+    text-align: center;
+    width: 400px;
+
+    .lightbox, .highlight {
+      // top: 3px;
+      // left: 7px;
+      float: left;
+      width: 106px;
+      height: 72px;
+      padding: 3px;
+      position: relative;
+      margin-right: -113px;
+      z-index: 1;
+    }
+
+    .highlight {
+      z-index: -1;
+      background-color: green; //#51a351;
+    }
+
+    .tictoes {
+      float: left;
+      width: 102px;
+      padding: 5px;
+      border-right: 1px solid black;
+      border-bottom: 1px solid black;
+
+      .tictoe {
+        width: 30px;
+        border: none;
+        outline: none;
+        text-align: center;
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+
+      .tictoe.won {
+        color: #9d261d;
+        font-weight: bold;
+      }
+
+      .tictoe:last-child {
+        border-right: none;
+      }
+
+      > div:last-child .tictoe {
+        border-bottom: none;
+      }
+    }
+
+    .tictoes.won {
+      background-color: #9d261d;
+    }
+
+    .tictoes:last-child {
+      border-right: none;
+    }
+
+    > div:nth-last-child(2) .tictoes {
+      border-bottom: none;
+    }
+  }
+}
+
+.player {
+  .turn {
+    background-color: #da4f49;
+  }
+}
+
+#chatBox {
+  #connected {
+    .icon-circle {
+      color: red;
+      font-size: 1em;
+    }
+    .icon {
+      font-size: 0.5em;
+    }
+  }
+
+  #connected.connected .icon-circle {
+    color: green;
+  }
+
+  .chats {
+    height: 170px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .chat {
+      line-height: 40px;
+
+      .username {
+        font-weight: bold;
+      }
+
+      .username:after {
+        content: ':';
+      }
+    }
+  }
+}
