@@ -21,7 +21,6 @@ module.exports = exports = (server) ->
             user.online = true
             user.save()
 
-
       socket.on 'game.join', ->
         User.findById socket.user_id, (err, user) ->
           if user
@@ -48,17 +47,11 @@ module.exports = exports = (server) ->
 
       socket.on 'move', (move) ->
         Game.findById socket.game_id, (err, game) ->
-          console.log game
           if game
-            if game.players[0]._id == socket.user_id
-              game.turn = game.players[1]
-            else
-              game.turn = game.players[0]
             game.moves.push
               user: socket.user_id
-              position: [move.indexOfTicTacToe, move.indexOfTicToe]
+              position: move.position
             game.save (err) ->
-              console.log game
               unless err
                 # Send move to all except sender
                 socket.broadcast.to(socket.channel).emit('move', move)

@@ -2,9 +2,6 @@ game_states = 'new waiting started forfeited finished'.split(' ')
 
 module.exports = exports = (Schema, Move, ChatMessage) ->
   Game = new Schema
-    turn:
-      type: Schema.ObjectId
-      ref: 'User'
     winner:
       type: Schema.ObjectId
       ref: 'User'
@@ -42,8 +39,6 @@ module.exports = exports = (Schema, Move, ChatMessage) ->
       if @players[0] != userId
         @players.push(userId) 
         @start()
-
-  Game.method 'chat', 
 
   Game.pre 'save', (next) ->
     if @players.length <= 2
