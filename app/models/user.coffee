@@ -1,4 +1,5 @@
 crypto = require('crypto')
+gravatar = require('gravatar')
 
 module.exports = (Schema, Service) ->
   User = new Schema
@@ -9,6 +10,10 @@ module.exports = (Schema, Service) ->
       required: true
     passwordHash: String
     salt: String
+    online:
+      type: Boolean
+      default: false
+    avatar: String
     services: [Service]
     google_id: String
     github_id: String
@@ -75,5 +80,11 @@ module.exports = (Schema, Service) ->
         refresh_token: serviceObj.refresh_token
     @save (err, user) ->
       callback(err, user)
+
+  User.pre 'save', (next) ->
+    @avatar = gravatar.url @email,
+      s: '34'
+      r: 'pg'
+    next()
 
   User

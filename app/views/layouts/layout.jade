@@ -21,7 +21,6 @@ html(lang="en")
           a.brand(href='/') Tic Tac Toe <sup>3</sup>
 
           .nav-collapse.collapse
-            - console.log(currentUser)
             if currentUser
               ul.nav.pull-right
                 li.dropdown
@@ -38,7 +37,7 @@ html(lang="en")
                         i.icon-fixed-width.icon-off
                         span Logout
               ul.nav.navbar-text.pull-right
-                img(src=gravatarUrl)
+                img(src=currentUser.avatar)
 
             ul.nav
               if currentUser

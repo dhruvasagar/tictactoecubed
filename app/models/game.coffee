@@ -1,6 +1,6 @@
 game_states = 'new waiting started forfeited finished'.split(' ')
 
-module.exports = exports = (Schema, Move) ->
+module.exports = exports = (Schema, Move, ChatMessage) ->
   Game = new Schema
     turn:
       type: Schema.ObjectId
@@ -17,6 +17,7 @@ module.exports = exports = (Schema, Move) ->
       enum: game_states
       default: 'new'
     moves: [Move]
+    chat_messages: [ChatMessage]
 
   Game.method 'setState', (state) ->
     @state = state
@@ -41,6 +42,8 @@ module.exports = exports = (Schema, Move) ->
       if @players[0] != userId
         @players.push(userId) 
         @start()
+
+  Game.method 'chat', 
 
   Game.pre 'save', (next) ->
     if @players.length <= 2

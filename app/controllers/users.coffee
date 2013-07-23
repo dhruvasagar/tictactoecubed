@@ -7,7 +7,6 @@ module.exports =
 
   create: (req, res) ->
     user = new User(req.body.user)
-
     user.save (err) ->
       if err
         res.render 'users/new',

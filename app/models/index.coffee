@@ -14,7 +14,10 @@ exports.defineModels = (callback) ->
   Move = require('./move')(Schema)
   Move.plugin plugins.timestamps
 
-  Game = require('./game')(Schema, Move)
+  ChatMessage = require('./chat_message')(Schema)
+  ChatMessage.plugin plugins.timestamps
+
+  Game = require('./game')(Schema, Move, ChatMessage)
   Game.plugin plugins.timestamps
 
   LoginToken = require('./login_token')(Schema)

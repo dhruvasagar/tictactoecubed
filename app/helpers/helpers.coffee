@@ -1,4 +1,3 @@
-gravatar = require('gravatar')
 mongoose = require('mongoose')
 User = mongoose.model('User')
 
@@ -17,12 +16,6 @@ flashMessage = (req, res) ->
 capitalize = (req, res) ->
   res.locals.capitalize = (value) ->
     value.charAt(0).toUpperCase() + value.slice(1)
-
-gravatarUrl = (req, res) ->
-  if req.session.currentUserEmail
-    res.locals.gravatarUrl = gravatar.url req.session.currentUserEmail,
-      s: '34'
-      r: 'pg'
 
 currentUser = (req, res) ->
   if req.session.currentUserId
@@ -46,6 +39,5 @@ module.exports = exports = (req, res) ->
   activeNav req, res
   capitalize req, res
   currentUser req, res
-  gravatarUrl req, res
   flashSetter req, res
   flashMessage req, res

@@ -1,6 +1,8 @@
 module.exports = exports = (Schema) ->
-  Move = new Schema
+  ChatMessage = new Schema
     user:
       type: Schema.ObjectId
       ref: 'User'
-    position: []
+    message: String
+
+  ChatMessage

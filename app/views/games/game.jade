@@ -60,12 +60,12 @@ block scripts
     var socket = io.connect('http://tictactoecubed.com');
 
     var user = !{JSON.stringify(currentUser)};
-    var avatar = '!{gravatarUrl}';
     var game = new Game(!{JSON.stringify(game)}, socket);
 
     ko.applyBindings(game);
 
     $(document).ready(function(){
+      $('.chats').prop('scrollTop', $('.chats').prop('scrollHeight'))
       $('#chatMessage').keypress(function(e) {
         if ( e.keyCode === 13 ) {
           socket.emit('sendMessage', $(this).val());

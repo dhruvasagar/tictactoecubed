@@ -1,6 +1,6 @@
 class @Game
   constructor: (game, socket) ->
-    @_id = ko.observable(game._id)
+    @id = ko.observable(game._id)
     @state = ko.observable(game || 'new')
     @players = ko.observableArray([])
     @messages = ko.observableArray([])
@@ -23,6 +23,13 @@ class @Game
     if game and Object.prototype.toString.call(game.players).match('Array')
       for player in game.players
         @join player
+
+    if game and Object.prototype.toString.call(game.chat_messages).match('Array')
+      for message in game.chat_messages
+        @messages.push
+          avatar: message.user.avatar
+          message: message.message
+          username: message.user.name
 
     @player1 = ko.computed =>
       return @players()[0] if @players()[0]
@@ -60,7 +67,7 @@ class @Game
       @tictactoecubed().activate(false)
       @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]].active(true) if nextPlayer.isCurrentPlayer()
 
-    socket.on 'connect', ->
+    socket.on 'connect', =>
       $('#connected').addClass('connected')
         .attr('title', 'Connected!')
         .find('i.icon-remove').removeClass('icon-remove')
@@ -69,9 +76,10 @@ class @Game
       $('#chatMessage').removeAttr('disabled')
 
       socket.emit 'game.join',
-        avatar: avatar,
-        game_id: '#{game._id}',
-        username: user.name
+        avatar: user.avatar,
+        game_id: @id()
+        user_id: window.currentUserId
+        user_name: user.name
 
     socket.on 'chatMessage', (avatar, username, message) =>
       @messages.push

@@ -24,7 +24,7 @@ module.exports =
 
   show: (req, res) ->
     Game.findById(req.param('id'))
-        .populate('turn winner players')
+        .populate('turn winner players move.user chat_messages.user')
         .exec (err, game) ->
           if game
             res.render 'games/game',
@@ -38,10 +38,8 @@ module.exports =
     Game.findById req.param('id'), (err, game) ->
       if game
         game.join req.session.currentUserId
-
         game.save (err) ->
           if err
-            console.log err
             req.flash 'error', 'Unable to Join Game'
             res.redirect '/games/' + game.id
           else
@@ -53,7 +51,6 @@ module.exports =
     Game.find({})
         .populate('turn winner players')
         .exec (err, games) ->
-          console.log(games[0])
           res.render 'games/index',
             games: games
 
