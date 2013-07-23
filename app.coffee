@@ -6,6 +6,7 @@ nconf = require('nconf')
 express = require('express')
 mongoose = require('mongoose')
 passport = require('passport')
+MongoStore = require('connect-mongo')(express)
 connectAssets = require('connect-assets')
 
 nconf.argv()
@@ -31,6 +32,8 @@ app.use express.session
   secret: 'secret'
   cookie:
     maxAge: 7 * 24 * 60 * 60 * 1000
+  store: new MongoStore
+    db: 'sessions'
 
 app.use require('./app/helpers')
 

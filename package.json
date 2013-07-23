@@ -19,6 +19,7 @@
     "mongoose": "*",
     "socket.io": "*",
     "coffee-script": "*",
+    "connect-mongo": "*",
     "connect-assets": "*",
     "passport": "*",
     "passport-github": "*",
