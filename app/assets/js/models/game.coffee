@@ -9,7 +9,7 @@ class @Game
 
     @start = =>
       @state('started')
-      @currentPlayer(game.turn || @players()[0])
+      @currentPlayer(new Player(game.turn) || @players()[0])
       @currentPlayer().turn(true)
       @tictactoecubed().activate() if @currentPlayer().isCurrentPlayer()
 
@@ -31,6 +31,15 @@ class @Game
           message: message.message
           username: message.user.name
 
+    if game and Object.prototype.toString.call(game.moves).match('Array')
+      user_id_cache = {}
+      for move in game.moves
+        unless user_id_cache[move.user._id]
+          player = ko.utils.arrayFirst @players(), (player) =>
+            player.id() == move.user._id
+          user_id_cache[move.user._id] = player
+        @tictactoecubed().move(move.position[0], move.position[1], user_id_cache[move.user._id])
+
     @player1 = ko.computed =>
       return @players()[0] if @players()[0]
       return false
@@ -39,10 +48,10 @@ class @Game
       return false
 
     @canJoin = ko.computed =>
-      !@players()[1] && @players()[0] && @players()[0].isCurrentPlayer()
+      !@players()[1] && @players()[0] && !@players()[0].isCurrentPlayer()
 
     @getPlayerByTic = (tic) =>
-      ko.utils.arrayFirst @players(), (player)=>
+      ko.utils.arrayFirst @players(), (player) =>
         player.tic() == tic
 
     @step = (indexOfTicTacToe, indexOfTicToe, remote = false) =>
@@ -75,11 +84,14 @@ class @Game
           .addClass('icon-dark')
       $('#chatMessage').removeAttr('disabled')
 
-      socket.emit 'game.join',
+      socket.emit 'game.enter',
         avatar: user.avatar,
         game_id: @id()
         user_id: window.currentUserId
         user_name: user.name
+
+    socket.on 'playerJoined', (user) =>
+      @join(user)
 
     socket.on 'chatMessage', (avatar, username, message) =>
       @messages.push

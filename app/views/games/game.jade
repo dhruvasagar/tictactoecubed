@@ -43,7 +43,7 @@ block scripts
       span(data-bind='text: player().tic')
   script(type="text/html", id="playerBlankTemplate")
     legend Player 2
-    a.btn.btn-primary(href='/games/' + game.id + '/join', data-bind='css: {disabled: !$root.canJoin()}') Join
+    a.btn.btn-primary.join(href='/games/' + game.id + '/join', data-bind='css: {disabled: !$root.canJoin()}') Join
   script(type="text/html", id="messageTemplate")
     .span3.pull-left
       img.avatar(data-bind='attr: {src: avatar}', align='left')
@@ -66,6 +66,13 @@ block scripts
 
     $(document).ready(function(){
       $('.chats').prop('scrollTop', $('.chats').prop('scrollHeight'))
+      $('a.disabled').attr('href', '#')
+                     .click(function(){
+                       return false;
+                     });
+      $('a.join').click(function() {
+        socket.emit('game.join');
+      });
       $('#chatMessage').keypress(function(e) {
         if ( e.keyCode === 13 ) {
           socket.emit('sendMessage', $(this).val());

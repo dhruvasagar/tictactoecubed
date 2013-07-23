@@ -8,7 +8,7 @@ module.exports = exports = (server) ->
   sio = io.listen(server)
   sio.sockets.on 'connection', (socket) ->
 
-      socket.on 'game.join', (data) ->
+      socket.on 'game.enter', (data) ->
         socket.avatar = data.avatar
         socket.game_id = data.game_id
         socket.channel = 'game:' + data.game_id
@@ -22,6 +22,11 @@ module.exports = exports = (server) ->
             user.save()
 
 
+      socket.on 'game.join', ->
+        User.findById socket.user_id, (err, user) ->
+          if user
+            socket.broadcast.to(socket.channel).emit('playerJoined', user)
+
       socket.on 'disconnect', (data) ->
         socket.leave socket.channel
         User.findById socket.user_id, (err, user) ->
@@ -30,7 +35,6 @@ module.exports = exports = (server) ->
             user.save()
 
       socket.on 'sendMessage', (message) ->
-        # Send message to everybody including sender
         Game.findById socket.game_id, (err, game) ->
           if game
             game.chat_messages.push
@@ -38,16 +42,23 @@ module.exports = exports = (server) ->
               message: message
             game.save (err) ->
               unless err
+                # Send message to everybody including sender
                 sio.sockets.in(socket.channel)
                            .emit('chatMessage', socket.avatar, socket.user_name, message)
 
       socket.on 'move', (move) ->
-        # Send move to all except sender
         Game.findById socket.game_id, (err, game) ->
+          console.log game
           if game
+            if game.players[0]._id == socket.user_id
+              game.turn = game.players[1]
+            else
+              game.turn = game.players[0]
             game.moves.push
               user: socket.user_id
-              position: move
+              position: [move.indexOfTicTacToe, move.indexOfTicToe]
             game.save (err) ->
+              console.log game
               unless err
+                # Send move to all except sender
                 socket.broadcast.to(socket.channel).emit('move', move)

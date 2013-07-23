@@ -24,7 +24,7 @@ module.exports =
 
   show: (req, res) ->
     Game.findById(req.param('id'))
-        .populate('turn winner players move.user chat_messages.user')
+        .populate('turn winner players moves.user chat_messages.user')
         .exec (err, game) ->
           if game
             res.render 'games/game',
