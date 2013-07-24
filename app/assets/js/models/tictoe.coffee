@@ -5,8 +5,8 @@ class @TicToe
     @value = ko.observable('')
     @tictactoe = tictactoe
 
-    @isEmpty = ko.computed =>
-      @value().length == 0
+    @isActive = ko.computed =>
+      @tictactoe.active() && @value().length == 0
 
     @keypressed = (data, event) =>
       key = String.fromCharCode(event.keyCode)

@@ -3,7 +3,7 @@ extends ../layouts/layout
 block content
   .row-fluid.mb20
     .span4(data-bind="if: player1")
-      .player(data-bind="template: {name: 'playerTemplate', data: {index: 1, player: player1}}").well
+      .well.player(data-bind="template: {name: 'playerTemplate', data: {index: 1, player: player1()}}, css: {turn: player1().turn}")
     .span4.game
       .tictactoecubed(data-bind='with: tictactoecubed')
         .cubedlightbox(data-bind='visible: active')
@@ -13,13 +13,13 @@ block content
             .highlight(data-bind='visible: active')
             .tictoes(data-bind='foreach: tictoes, css: {won: won}')
               .ticrow(data-bind='foreach: $data')
-                input(class='tictoe', data-bind="enable: isEmpty, event: {keypress: keypressed}, css: {won: won}, value: value, valueUpdate: 'afterkeydown'")
+                input(class='tictoe', data-bind="enable: isActive, event: {keypress: keypressed}, css: {won: won}, value: value, valueUpdate: 'afterkeydown'")
           .clearfix
         .clearfix
     .span4(data-bind="if: player2, visible: player2")
-      .player(data-bind="template: {name: 'playerTemplate', data: {index: 2, player: player2}}").well
+      .well.player(data-bind="template: {name: 'playerTemplate', data: {index: 2, player: player2()}}, css: {turn: player2().turn}")
     .span4(data-bind="ifnot: player2, visible: !player2()")
-      .player(data-bind="template: {name: 'playerBlankTemplate'}").well
+      .well.player(data-bind="template: {name: 'playerBlankTemplate'}")
   .row-fluid
     #chatBox.well
       legend
@@ -29,7 +29,7 @@ block content
             i.icon-circle.icon-stack-base
             i.icon.icon-remove
       .chats(data-bind='foreach: messages')
-        .chat(data-bind="template: {name: 'messageTemplate', data: $data}")
+        .chat(data-bind="template: {name: 'messageTemplate', data: $data, afterRender: $root.scrollChat}")
       input#chatMessage.input-block-level(type='text', name='chatMessage', disabled)
 
 block scripts
@@ -37,18 +37,20 @@ block scripts
     legend
       span Player 
       span(data-bind='text: index')
-    h3(data-bind='text: player().name, css: {turn: player().turn}')
+    .pull-left
+      img.avatar(data-bind='attr: {src: player.avatar}')
+    h3(data-bind='text: player.name')
     .info
-      span Tic :
-      span(data-bind='text: player().tic')
+      span Tic: 
+      span(data-bind='text: player.tic')
   script(type="text/html", id="playerBlankTemplate")
     legend Player 2
     a.btn.btn-primary.join(href='/games/' + game.id + '/join', data-bind='css: {disabled: !$root.canJoin()}') Join
   script(type="text/html", id="messageTemplate")
-    .span3.pull-left
-      img.avatar(data-bind='attr: {src: avatar}', align='left')
+    .pull-left
+      img.avatar(data-bind='attr: {src: avatar}')
+    .message.pull-left
       .username(data-bind='text: username')
-    .span9.message
       .message-text(data-bind='text: message')
     .clear
   != js('models/player')
@@ -65,7 +67,6 @@ block scripts
     ko.applyBindings(game);
 
     $(document).ready(function(){
-      $('.chats').prop('scrollTop', $('.chats').prop('scrollHeight'))
       $('a.disabled').attr('href', '#')
                      .click(function(){
                        return false;

@@ -134,10 +134,8 @@ span.add-on.required > .circle.green {
   }
 }
 
-.player {
-  .turn {
-    background-color: #da4f49;
-  }
+.player.turn {
+  background-color: #da4f49;
 }
 
 #chatBox {
@@ -156,23 +154,25 @@ span.add-on.required > .circle.green {
   }
 
   .chats {
-    height: 170px;
+    height: 225px;
     overflow-x: hidden;
     overflow-y: auto;
+    margin-bottom: 10px;
 
     .chat {
-      line-height: 40px;
-
-      .username {
-        font-weight: bold;
-      }
-
-      .username:after {
-        content: ':';
-      }
+      padding: 5px;
 
       .message {
-        margin: 0;
+        margin: 0 5px;
+        line-height: 16px;
+
+        .username {
+          font-weight: bold;
+        }
+
+        .username:after {
+          content: ':';
+        }
       }
     }
   }

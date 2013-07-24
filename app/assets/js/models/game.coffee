@@ -69,6 +69,9 @@ class @Game
       ko.utils.arrayFirst @players(), (player) =>
         player.tic() == tic
 
+    @scrollChat = =>
+      $('.chats').prop('scrollTop', $('.chats').prop('scrollHeight'))
+
     if game.chat_messages && game.chat_messages.length
       for message in game.chat_messages
         @messages.push
@@ -107,7 +110,6 @@ class @Game
         avatar: avatar
         message: message
         username: username
-      $('.chats').prop('scrollTop', $('.chats').prop('scrollHeight'))
 
     socket.on 'move', (move) =>
       @step(move.position[0], move.position[1], true)
