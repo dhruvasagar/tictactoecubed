@@ -13,7 +13,7 @@ block content
             .highlight(data-bind='visible: active')
             .tictoes(data-bind='foreach: tictoes, css: {won: won}')
               .ticrow(data-bind='foreach: $data')
-                input(class='tictoe', data-bind="enable: isActive, event: {keypress: keypressed}, css: {won: won}, value: value, valueUpdate: 'afterkeydown'")
+                input(class='tictoe', data-bind="enable: isActive, event: {keypress: keypressed}, css: {won: won}, value: value")
           .clearfix
         .clearfix
     .span4(data-bind="if: player2, visible: player2")

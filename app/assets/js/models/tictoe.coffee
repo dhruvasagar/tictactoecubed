@@ -6,12 +6,13 @@ class @TicToe
     @tictactoe = tictactoe
 
     @isActive = ko.computed =>
-      @tictactoe.active() && @value().length == 0
+      !@tictactoe.tictactoecubed.won() && !@tictactoe.won() && @tictactoe.active() && @value().length == 0
 
     @keypressed = (data, event) =>
       key = String.fromCharCode(event.keyCode)
       regexp = new RegExp('[' + @game.currentPlayer().tic() + ']', 'i')
       if key.match regexp
+        @value(key)
         @tictactoe.played(this)
         return true
       else
