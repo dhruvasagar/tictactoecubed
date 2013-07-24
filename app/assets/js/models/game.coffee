@@ -55,6 +55,20 @@ class @Game
       for player in game.players
         @join player
 
+    @player1 = ko.computed =>
+      return @players()[0] if @players()[0]
+      return false
+    @player2 = ko.computed =>
+      return @players()[1] if @players()[1]
+      return false
+
+    @canJoin = ko.computed =>
+      !@players()[1] && @players()[0] && !@players()[0].isCurrentPlayer()
+
+    @getPlayerByTic = (tic) =>
+      ko.utils.arrayFirst @players(), (player) =>
+        player.tic() == tic
+
     if game.chat_messages && game.chat_messages.length
       for message in game.chat_messages
         @messages.push
@@ -71,20 +85,6 @@ class @Game
           user_id_cache[move.user._id] = player
         @tictactoecubed().move(move.position[0], move.position[1], user_id_cache[move.user._id])
 
-    @player1 = ko.computed =>
-      return @players()[0] if @players()[0]
-      return false
-    @player2 = ko.computed =>
-      return @players()[1] if @players()[1]
-      return false
-
-    @canJoin = ko.computed =>
-      !@players()[1] && @players()[0] && !@players()[0].isCurrentPlayer()
-
-    @getPlayerByTic = (tic) =>
-      ko.utils.arrayFirst @players(), (player) =>
-        player.tic() == tic
-
     socket.on 'connect', =>
       $('#connected').addClass('connected')
         .attr('title', 'Connected!')
@@ -94,7 +94,7 @@ class @Game
       $('#chatMessage').removeAttr('disabled')
 
       socket.emit 'game.enter',
-        avatar: user.avatar,
+        avatar: user.avatar
         game_id: @id()
         user_id: window.currentUserId
         user_name: user.name
@@ -104,8 +104,8 @@ class @Game
 
     socket.on 'chatMessage', (avatar, username, message) =>
       @messages.push
-        avatar: avatar,
-        message: message,
+        avatar: avatar
+        message: message
         username: username
       $('.chats').prop('scrollTop', $('.chats').prop('scrollHeight'))
 
