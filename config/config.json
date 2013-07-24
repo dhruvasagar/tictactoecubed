@@ -25,9 +25,6 @@
     }
   },
   "production": {
-    "http": {
-      "port": "3000"
-    },
     "oauth": {
       "github": {
         "id": "89f738fef1a2caa3d67e",

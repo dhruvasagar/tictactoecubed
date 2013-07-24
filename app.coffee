@@ -18,7 +18,7 @@ nconf.getByEnv = (key) ->
   nconf.get(nconf.get('NODE_ENV') + ':' + key)
 
 app = express()
-app.set 'port', nconf.getByEnv('http:port')
+app.set 'port', nconf.getByEnv('http:port') || nconf.get('PORT')
 app.set 'views', path.join(__dirname, 'app', 'views')
 app.set 'view engine', 'jade'
 app.set 'db-uri', nconf.getByEnv('db:uri') || nconf.get('DB_URI')
