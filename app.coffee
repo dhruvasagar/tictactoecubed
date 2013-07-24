@@ -23,6 +23,8 @@ app.set 'views', path.join(__dirname, 'app', 'views')
 app.set 'view engine', 'jade'
 app.set 'db-uri', nconf.getByEnv('db:uri') || nconf.get('DB_URI')
 
+mongoose.connect(app.get('db-uri'))
+
 app.use express.favicon()
 app.use express.logger('dev')
 app.use express.bodyParser()
@@ -33,7 +35,7 @@ app.use express.session
   cookie:
     maxAge: 7 * 24 * 60 * 60 * 1000
   store: new MongoStore
-    db: 'sessions'
+    db: mongoose.connections[0].db
 
 app.use require('./app/helpers')
 
@@ -52,8 +54,7 @@ app.configure 'development', ->
   app.use express.errorHandler()
 
 models = require('./app/models')
-models.defineModels ->
-  mongoose.connect(app.get('db-uri'))
+models.defineModels()
 
 require('./config/passport').registerStrategies()
 require('./config/routes').registerRoutes(app)
