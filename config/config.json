@@ -25,9 +25,6 @@
     }
   },
   "production": {
-    "db": {
-      "uri": "mongodb://localhost/tictactoe_production"
-    },
     "http": {
       "port": "3000"
     },
