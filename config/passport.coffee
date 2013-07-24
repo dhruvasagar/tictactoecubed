@@ -1,7 +1,6 @@
 nconf = require('nconf')
 passport = require('passport')
-mongoose = require('mongoose')
-User = mongoose.model('User')
+User = require('mongoose').model('User')
 
 Strategies =
   'github': require('passport-github').Strategy

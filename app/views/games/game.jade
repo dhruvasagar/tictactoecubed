@@ -59,7 +59,7 @@ block scripts
   != js('models/tictactoecubed')
   != js('models/game')
   script(type="text/javascript")
-    var socket = io.connect('http://tictactoecubed.com');
+    var socket = io.connect(location.host);
 
     var user = !{JSON.stringify(currentUser)};
     var game = new Game(!{JSON.stringify(game)}, socket);
