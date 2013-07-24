@@ -1,6 +1,6 @@
 mongoose = require('mongoose')
 
-exports.defineModels = (callback) ->
+exports.defineModels = ->
   Schema = mongoose.Schema
 
   plugins = require('./plugins')
@@ -26,5 +26,3 @@ exports.defineModels = (callback) ->
   mongoose.model 'Game', Game
   mongoose.model 'Service', Service
   mongoose.model 'LoginToken', LoginToken
-
-  callback()

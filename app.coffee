@@ -28,12 +28,14 @@ app.use express.logger('dev')
 app.use express.bodyParser()
 app.use express.methodOverride()
 app.use express.cookieParser()
+
+mongoose.connect(app.get('db-uri'))
 app.use express.session
   secret: 'secret'
   cookie:
     maxAge: 7 * 24 * 60 * 60 * 1000
   store: new MongoStore
-    db: 'sessions'
+    mongoose_connection: mongoose.connections[0]
 
 app.use require('./app/helpers')
 
@@ -52,8 +54,7 @@ app.configure 'development', ->
   app.use express.errorHandler()
 
 models = require('./app/models')
-models.defineModels ->
-  mongoose.connect(app.get('db-uri'))
+models.defineModels()
 
 require('./config/passport').registerStrategies()
 require('./config/routes').registerRoutes(app)
