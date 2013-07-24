@@ -34,7 +34,7 @@
       "google": {
         "id": "1032482900635.apps.googleusercontent.com",
         "secret": "pozyyCymLr3BKfwKOEVbftzT",
-        "callback_url": "http://tictactoecubed.herokuapp.com/auth/twitter/callback"
+        "callback_url": "http://tictactoecubed.herokuapp.com/auth/google/callback"
       },
       "facebook": {
         "id": "606536832704023",
