@@ -54,76 +54,82 @@ span.add-on.required > .circle.green {
   background-color: darkgreen;
 }
 
-.tictactoecubed {
-  .cubedlightbox {
-    float: left;
-    width: 400px;
-    height: 300px;
-    position: absolute;
-    z-index: 2;
-  }
+.game {
+  .tictactoecubed {
+    width: 50%;
+    margin: 0 auto;
+    min-width: 336px;
 
-  .tictactoes {
-    text-align: center;
-    width: 400px;
-
-    .lightbox, .highlight {
-      // top: 3px;
-      // left: 7px;
+    .cubedlightbox {
       float: left;
-      width: 106px;
-      height: 72px;
-      padding: 3px;
-      position: relative;
-      margin-right: -113px;
-      z-index: 1;
+      width: 400px;
+      height: 300px;
+      position: absolute;
+      z-index: 2;
     }
 
-    .highlight {
-      z-index: -1;
-      background-color: green; //#51a351;
-    }
+    .tictactoes {
+      text-align: center;
+      width: 400px;
 
-    .tictoes {
-      float: left;
-      width: 102px;
-      padding: 5px;
-      border-right: 1px solid black;
-      border-bottom: 1px solid black;
+      .lightbox, .highlight {
+        // top: 3px;
+        // left: 7px;
+        float: left;
+        width: 106px;
+        height: 72px;
+        padding: 3px;
+        position: relative;
+        margin-right: -113px;
+        z-index: 1;
+      }
 
-      .tictoe {
-        width: 30px;
-        border: none;
-        outline: none;
-        text-align: center;
+      .highlight {
+        z-index: -1;
+        background-color: green; //#51a351;
+      }
+
+      .tictoes {
+        float: left;
+        width: 102px;
+        padding: 5px;
         border-right: 1px solid black;
         border-bottom: 1px solid black;
+
+        .tictoe {
+          width: 30px;
+          border: none;
+          outline: none;
+          text-align: center;
+          border-right: 1px solid black;
+          border-bottom: 1px solid black;
+        }
+
+        .tictoe.won {
+          color: #9d261d;
+          font-weight: bold;
+        }
+
+        .tictoe:last-child {
+          border-right: none;
+        }
+
+        > div:last-child .tictoe {
+          border-bottom: none;
+        }
       }
 
-      .tictoe.won {
-        color: #9d261d;
-        font-weight: bold;
+      .tictoes.won {
+        background-color: #9d261d;
       }
 
-      .tictoe:last-child {
+      .tictoes:last-child {
         border-right: none;
       }
 
-      > div:last-child .tictoe {
+      > div:nth-last-child(2) .tictoes {
         border-bottom: none;
       }
-    }
-
-    .tictoes.won {
-      background-color: #9d261d;
-    }
-
-    .tictoes:last-child {
-      border-right: none;
-    }
-
-    > div:nth-last-child(2) .tictoes {
-      border-bottom: none;
     }
   }
 }
@@ -163,6 +169,10 @@ span.add-on.required > .circle.green {
 
       .username:after {
         content: ':';
+      }
+
+      .message {
+        margin: 0;
       }
     }
   }

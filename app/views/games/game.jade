@@ -4,7 +4,7 @@ block content
   .row-fluid.mb20
     .span4(data-bind="if: player1")
       .player(data-bind="template: {name: 'playerTemplate', data: {index: 1, player: player1}}").well
-    .span4.text-center
+    .span4.game
       .tictactoecubed(data-bind='with: tictactoecubed')
         .cubedlightbox(data-bind='visible: active')
         .tictactoes(data-bind='foreach: tictactoes, css: {solved: isSolved}')
@@ -48,8 +48,8 @@ block scripts
     .span3.pull-left
       img.avatar(data-bind='attr: {src: avatar}', align='left')
       .username(data-bind='text: username')
-    .span9
-      .message(data-bind='text: message')
+    .span9.message
+      .message-text(data-bind='text: message')
     .clear
   != js('models/player')
   != js('models/tictoe')
