@@ -36,14 +36,22 @@ module.exports = exports = (Schema, Move, ChatMessage) ->
       @players.push(userId)
       @waiting()
     else if @players.length < 2
-      if @players[0] != userId
-        @players.push(userId) 
-        @start()
+      @players.push(userId) 
+      @start()
+
+  Game.path('moves').validate (moves) ->
+    moves.length <= 1 || ( moves.length > 1 && !moves[moves.length-1].equals(moves[moves.length-2]) )
+  , 'Invalid Move'
 
   Game.pre 'save', (next) ->
-    if @players.length <= 2
+    if @players.length <= 1
       next()
+    else if @players.length == 2
+      if @players[0].equals(@players[1])
+        next(new Error("You can't join your own game"))
+      else
+        next()
     else
-      next(new Error('Too many players'))
+      next(new Error('Game is already full'))
 
   Game

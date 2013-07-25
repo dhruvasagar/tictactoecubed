@@ -40,7 +40,7 @@ module.exports =
         game.join req.session.currentUserId
         game.save (err) ->
           if err
-            req.flash 'error', 'Unable to Join Game'
+            req.flash 'error', err.message
             res.redirect '/games/' + game.id
           else
             req.flash 'info', 'Joined Game'
