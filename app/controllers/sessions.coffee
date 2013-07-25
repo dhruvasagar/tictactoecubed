@@ -20,9 +20,9 @@ module.exports =
             res.cookie 'loginToken', loginToken.cookieValue,
               expires: new Date(Date.now() + 2 * 604800000)
               path: '/'
-            res.redirect '/'
+            req.redirect req.session.originalUrl || '/'
         else
-          res.redirect '/'
+          res.redirect req.session.originalUrl || '/'
       else
         req.flash 'error', 'Incorrect Credentials'
         res.redirect '/sessions/new'

@@ -11,6 +11,7 @@ authenticateFromLoginToken = (req, res, next) ->
     series: cookie.series
   , (err, token) ->
     if !token
+      req.session.originalUrl = req.originalUrl
       res.redirect '/sessions/new'
       return
 
@@ -29,6 +30,7 @@ authenticateFromLoginToken = (req, res, next) ->
               path: '/'
             next()
         else
+          req.session.originalUrl = req.originalUrl
           res.redirect '/sessions/new'
 
 module.exports = exports = (req, res, next) ->
@@ -38,6 +40,7 @@ module.exports = exports = (req, res, next) ->
           res.locals.currentUser = user
           next()
         else
+          req.session.originalUrl = req.originalUrl
           res.redirect '/sessions/new'
     else if req.user # passport.js
       res.locals.currentUser = req.user
@@ -47,4 +50,5 @@ module.exports = exports = (req, res, next) ->
     else if req.cookies and req.cookies.loginToken
       authenticateFromLoginToken(req, res, next)
     else
+      req.session.originalUrl = req.originalUrl
       res.redirect '/sessions/new'

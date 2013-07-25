@@ -3,4 +3,4 @@ module.exports = exports =
     if req.user
       req.session.currentUserId = req.user.id
       req.session.currentUserEmail = req.user.email
-    res.redirect '/'
+    res.redirect req.session.originalUrl || '/'

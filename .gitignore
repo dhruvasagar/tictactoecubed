@@ -1,3 +1,4 @@
 .env
 *.log
+tags
 node_modules/
