@@ -6,10 +6,8 @@ block content
       .well.player(data-bind="template: {name: 'playerTemplate', data: {index: 1, player: player1()}}, css: {turn: player1().turn}")
     .span4.game
       .tictactoecubed(data-bind='with: tictactoecubed')
-        .cubedlightbox(data-bind='visible: active')
         .tictactoes(data-bind='foreach: tictactoes, css: {solved: isSolved}')
           .tictacrow(data-bind='foreach: $data')
-            .lightbox(data-bind='visible: !active()')
             .highlight(data-bind='visible: active')
             .tictoes(data-bind='foreach: tictoes, css: {won: won}')
               .ticrow(data-bind='foreach: $data')
