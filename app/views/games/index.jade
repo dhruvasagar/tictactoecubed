@@ -7,28 +7,23 @@ block content
         i.icon-fixed-width.icon-plus
         span New Game
       span Games
-    table.table.table-hover
-      thead
-        tr
-          th No.
-          th Status
-          th Player 1
-          th Player 2
-          th Winner
-          th Actions
-      tbody(data-bind='foreach: games')
-        tr
-          td(data-bind='text: $index()+1')
-          td(data-bind='text: state')
-          td(data-bind='text: player1')
-          td(data-bind='text: player2')
-          td(data-bind='text: winner')
-          td(data-bind='html: actions')
-      tbody(data-bind='if: games().length === 0')
-        tr
-          td(colspan=6) No games
+    .games(data-bind='foreach: games')
+      .well.game-card(data-bind='click: showGame')
+        .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player1}")
+        .vs.pull-left VS
+        .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player2}")
 
 block scripts
+  script(type='text/html', id='playerTemplate')
+    div(data-bind='if: $data')
+      .pull-left
+        img(data-bind='attr: {src: avatar}', style="padding-right: 5px;")
+      .name(data-bind="text: name")
+    data(data-bind='ifnot: $data')
+      a.btn.btn-primary.join(href='#', data-bind="click: $parent.joinGame, css: {disabled: !$parent.canJoin()}") Join
+  != js('models/player')
   != js('models/games')
   script(type='text/javascript')
-    ko.applyBindings(new Games(!{JSON.stringify(games)}));
+    var socket = io.connect(location.host);
+
+    ko.applyBindings(new Games(!{JSON.stringify(games)}, socket));

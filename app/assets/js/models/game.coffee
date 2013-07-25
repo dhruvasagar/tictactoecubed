@@ -88,28 +88,45 @@ class @Game
           user_id_cache[move.user._id] = player
         @tictactoecubed().move(move.position[0], move.position[1], user_id_cache[move.user._id])
 
-    socket.on 'connect', =>
-      $('#connected').addClass('connected')
-        .attr('title', 'Connected!')
-        .find('i.icon-remove').removeClass('icon-remove')
-          .addClass('icon-ok')
-          .addClass('icon-dark')
-      $('#chatMessage').removeAttr('disabled')
+    @joinGame = (data, event) =>
+      if $(event.target).hasClass('disabled')
+        event.preventDefault()
+        return false
+      else
+        socket.emit('game.join')
+        location.href = '/games/' + @id() + '/join'
 
-      socket.emit 'game.enter',
-        avatar: user.avatar
-        game_id: @id()
-        user_id: window.currentUserId
-        user_name: user.name
+    @sendMessage = (data, event) =>
+      target = $(event.target)
+      if event.keyCode == 13
+        socket.emit('sendMessage', target.val())
+        target.val('')
+      else
+        return true
 
-    socket.on 'playerJoined', (user) =>
-      @join(user)
+    if socket
+      socket.on 'connect', =>
+        $('#connected').addClass('connected')
+          .attr('title', 'Connected!')
+          .find('i.icon-remove').removeClass('icon-remove')
+            .addClass('icon-ok')
+            .addClass('icon-dark')
+        $('#chatMessage').removeAttr('disabled')
 
-    socket.on 'chatMessage', (avatar, username, message) =>
-      @messages.push
-        avatar: avatar
-        message: message
-        username: username
+        socket.emit 'game.enter',
+          avatar: user.avatar
+          game_id: @id()
+          user_id: window.currentUserId
+          user_name: user.name
 
-    socket.on 'move', (move) =>
-      @step(move.position[0], move.position[1], true)
+      socket.on 'playerJoined', (user) =>
+        @join(user)
+
+      socket.on 'chatMessage', (avatar, username, message) =>
+        @messages.push
+          avatar: avatar
+          message: message
+          username: username
+
+      socket.on 'move', (move) =>
+        @step(move.position[0], move.position[1], true)

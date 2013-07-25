@@ -28,7 +28,7 @@ block content
             i.icon.icon-remove
       .chats(data-bind='foreach: messages')
         .chat(data-bind="template: {name: 'messageTemplate', data: $data, afterRender: $root.scrollChat}")
-      input#chatMessage.input-block-level(type='text', name='chatMessage', disabled)
+      input#chatMessage.input-block-level(type='text', name='chatMessage', disabled, data-bind='event: {keypress: sendMessage}')
 
 block scripts
   script(type="text/html", id="playerTemplate")
@@ -43,7 +43,7 @@ block scripts
       span(data-bind='text: player.tic')
   script(type="text/html", id="playerBlankTemplate")
     legend Player 2
-    a.btn.btn-primary.join(href='/games/' + game.id + '/join', data-bind='css: {disabled: !$root.canJoin()}') Join
+    a.btn.btn-primary.join(href='#', data-bind='click: $root.joinGame, css: {disabled: !$root.canJoin()}') Join
   script(type="text/html", id="messageTemplate")
     .pull-left
       img.avatar(data-bind='attr: {src: avatar}')
@@ -63,19 +63,3 @@ block scripts
     var game = new Game(!{JSON.stringify(game)}, socket);
 
     ko.applyBindings(game);
-
-    $(document).ready(function(){
-      $('a.disabled').attr('href', '#')
-                     .click(function(){
-                       return false;
-                     });
-      $('a.join').click(function() {
-        socket.emit('game.join');
-      });
-      $('#chatMessage').keypress(function(e) {
-        if ( e.keyCode === 13 ) {
-          socket.emit('sendMessage', $(this).val());
-          $(this).val('');
-        }
-      });
-    });
