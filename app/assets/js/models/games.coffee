@@ -7,7 +7,7 @@ class Game
 
     if game.players
       for player in game.players
-        @players.push (new Player(player))
+        @players.push(new Player(player))
 
     @player1 = ko.computed =>
       return @players()[0] if @players()[0]

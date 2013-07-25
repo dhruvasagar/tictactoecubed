@@ -7,8 +7,14 @@ block content
         i.icon-fixed-width.icon-plus
         span New Game
       span Games
+    .legend
+      .box.waiting Waiting
+      .box.started Started
+      .box.forfeited Forfeited
+      .box.finished Finished
+    .clear
     .games(data-bind='foreach: games')
-      .well.game-card(data-bind='click: showGame')
+      .well.game-card(data-bind='click: showGame, css: state')
         .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player1}")
         .vs.pull-left VS
         .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player2}")

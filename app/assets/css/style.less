@@ -1,6 +1,16 @@
 @import 'bootstrap.css';
 @import 'bootstrap-responsive.css';
 
+@waiting: #ff8e00;
+@started: #269926;
+@forfeited: #ff0700;
+@finished: #0a67a3;
+
+@github: #333333;
+@google: #cc3732;
+@facebook: #3B5998;
+
+
 body {
   padding-top: 60px;
 }
@@ -23,15 +33,15 @@ body {
   margin-bottom: 10px;
 
   a.github {
-    color: #333333
+    color: @github;
   }
 
   a.google {
-    color: #cc3732;
+    color: @google;
   }
 
   a.facebook {
-    color: #3B5998;
+    color: @facebook;
   }
 }
 
@@ -52,6 +62,29 @@ span.add-on.required > .circle.red {
 
 span.add-on.required > .circle.green {
   background-color: darkgreen;
+}
+
+.legend {
+  margin-bottom: 10px;
+
+  .box {
+    float: left;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  .box.waiting {
+    background-color: @waiting;
+  }
+  .box.started {
+    background-color: @started;
+  }
+  .box.forfeited {
+    background-color: @forfeited;
+  }
+  .box.finished {
+    background-color: @finished;
+  }
 }
 
 .games {
@@ -77,6 +110,19 @@ span.add-on.required > .circle.green {
         padding-left: 5px;
       }
     }
+  }
+
+  .game-card.waiting {
+    background-color: @waiting;
+  }
+  .game-card.started {
+    background-color: @started;
+  }
+  .game-card.forfeited {
+    background-color: @forfeited;
+  }
+  .game-card.finished {
+    background-color: @finished;
   }
 }
 

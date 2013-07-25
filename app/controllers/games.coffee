@@ -48,7 +48,7 @@ module.exports =
     return
 
   index: (req, res) ->
-    Game.find({})
+    Game.find()
         .populate('turn winner players')
         .exec (err, games) ->
           res.render 'games/index',
