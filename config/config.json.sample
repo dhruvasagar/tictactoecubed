@@ -1,0 +1,27 @@
+{
+  "development": {
+    "db": {
+      "uri": "mongodb://localhost/tictactoe_development"
+    },
+    "http": {
+      "port": "3000"
+    },
+    "oauth": {
+      "github": {
+        "id": "dev_github_id",
+        "secret": "dev_github_secret",
+        "callback_url": "dev_github_callback"
+      },
+      "google": {
+        "id": "dev_google_id",
+        "secret": "dev_google_secret",
+        "callback_url": "dev_google_callback"
+      },
+      "facebook": {
+        "id": "dev_facebook_id",
+        "secret": "dev_facebook_secret",
+        "callback_url": "dev_facebook_callback"
+      }
+    }
+  },
+}
