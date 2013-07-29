@@ -2,6 +2,7 @@ game_states = 'new waiting started forfeited finished'.split(' ')
 
 module.exports = exports = (Schema, Move, ChatMessage) ->
   Game = new Schema
+    name: String
     winner:
       type: Schema.ObjectId
       ref: 'User'
@@ -40,7 +41,12 @@ module.exports = exports = (Schema, Move, ChatMessage) ->
       @start()
 
   Game.path('moves').validate (moves) ->
-    moves.length <= 1 || ( moves.length > 1 && !moves[moves.length-1].equals(moves[moves.length-2]) )
+    moves.length <= 1 || ( moves.length > 1 &&
+      # Last 2 moves shouldn't be the same
+      !moves[moves.length-1].equals(moves[moves.length-2]) &&
+      # Last move must be according to second last
+      moves[moves.length-1].position[0].toString() ==
+        moves[moves.length-2].position[1].toString() )
   , 'Invalid Move'
 
   Game.pre 'save', (next) ->
