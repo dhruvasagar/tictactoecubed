@@ -3,6 +3,7 @@ class @TicTacToe
     @won = ko.observable(false)
     @game = game
     @active = ko.observable(false)
+    @highlight = ko.observable(false)
     @tictactoecubed = tictactoecubed
     @tictoes = ko.observableArray [
       [new TicToe(this, @game), new TicToe(this, @game), new TicToe(this, @game)],

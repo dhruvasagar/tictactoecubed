@@ -8,7 +8,7 @@ block content
       .tictactoecubed(data-bind='with: tictactoecubed')
         .tictactoes(data-bind='foreach: tictactoes, css: {solved: isSolved}')
           .tictacrow(data-bind='foreach: $data')
-            .highlight(data-bind='visible: active')
+            .highlight(data-bind='visible: highlight')
             .tictoes(data-bind='foreach: tictoes, css: {won: won}')
               .ticrow(data-bind='foreach: $data')
                 input(class='tictoe', data-bind="enable: isActive, event: {keypress: keypressed}, css: {won: won}, value: value")

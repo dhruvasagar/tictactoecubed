@@ -31,6 +31,7 @@ class @TicTacToeCubed
     for tictactoerow in @tictactoes()
       for tictactoe in tictactoerow
         tictactoe.active(flag)
+        tictactoe.highlight(flag)
 
   winner_tic: ->
     for i in [0..2]

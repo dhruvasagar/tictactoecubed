@@ -78,6 +78,7 @@ class @Game
 
     @tictactoecubed().activate(false)
     @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]].active(true) if nextPlayer.isCurrentPlayer()
+    @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]].highlight(true)
 
     if remote
       @tictactoecubed().move(indexOfTicTacToe, indexOfTicToe, prevPlayer)
