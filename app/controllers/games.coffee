@@ -19,7 +19,7 @@ module.exports =
         res.render 'games/new',
           game: game
       else
-        req.flash 'info', 'Game created'
+        req.flash 'success', 'Game created'
         res.redirect "/games/#{game.id}"
 
   show: (req, res) ->
@@ -42,7 +42,7 @@ module.exports =
           if err
             req.flash 'error', err.message
           else
-            req.flash 'info', 'Joined Game'
+            req.flash 'success', 'Joined Game'
           res.redirect "/games#{game.id}"
     return
 
@@ -56,7 +56,7 @@ module.exports =
   observe: (req, res) ->
     Game.findById req.param('id'), (err, game) ->
       if game
-        req.flash 'info', 'You are now observing the game'
+        req.flash 'success', 'You are now observing the game'
         res.redirect "/games/#{game.id}"
       else
         req.flash 'error', 'Game not found'

@@ -15,7 +15,8 @@ module.exports =
         email: req.param('email')
         subject: req.param('subject')
         message: req.param('message')
-      res.redirect '/contact'
+      req.flash 'success', 'Message Sent'
+      res.redirect '/'
     else
       res.render 'home/contact'
 

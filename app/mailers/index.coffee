@@ -10,7 +10,7 @@ transport = mailer.createTransport 'SMTP',
 module.exports = exports =
   sendContactEmail: (params)->
     transport.sendMail
-      from: 'contact@tictactoecubed.com'
+      from: 'no-reply@tictactoecubed.com'
       to: 'contact@tictactoecubed.com'
       cc: params.email
       subject: params.subject
