@@ -12,59 +12,62 @@ html(lang="en")
       script(type='text/javascript')
         window.currentUserId = "#{currentUser._id}";
   body
-    .navbar.navbar-inverse.navbar-fixed-top
-      .navbar-inner
-        .container-fluid
-          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-            span.icon-bar
+    .container
+      .navbar.navbar-inverse.navbar-fixed-top
+        a.navbar-brand(href='/') Tic Tac Toe <sup>3</sup>
 
-          a.brand(href='/') Tic Tac Toe <sup>3</sup>
+        if currentUser
+          ul.nav.navbar-nav.pull-right
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle="dropdown")
+                .media-object.pull-left(style='margin: -8px 5px 0 -7px;')
+                  img(src=currentUser.avatar)
+                span= currentUser.name
+                b.caret
+              ul.dropdown-menu(style='width: 100%')
+                li
+                  a(href='/users/' + currentUser._id)
+                    i.icon-fixed-width.icon-user
+                    span Profile
+                li
+                  a#logout(href='#')
+                    i.icon-fixed-width.icon-off
+                    span Logout
+        else
+          ul.nav.navbar-nav.pull-right
+            li
+              a(href='/sessions/new') Have an account? <strong>Sign in</strong>
 
-          .nav-collapse.collapse
-            if currentUser
-              ul.nav.pull-right
-                li.dropdown
-                  a.dropdown-toggle(href='#', data-toggle="dropdown")
-                    span= currentUser.name
-                    b.caret
-                  ul.dropdown-menu
-                    li
-                      a(href='/users/' + currentUser._id)
-                        i.icon-fixed-width.icon-user
-                        span Profile
-                    li
-                      a#logout(href='#')
-                        i.icon-fixed-width.icon-off
-                        span Logout
-              ul.nav.navbar-text.pull-right
-                img(src=currentUser.avatar)
-
-            ul.nav
-              if currentUser
-                li(class=(activeNav == 'dashboard' ? 'active' : ''))
-                  a(href='/')
-                    i.icon-fixed-width.icon-home
-                    span Dashboard
-                li(class=(activeNav == 'games' ? 'active' : ''))
-                  a(href='/games')
-                    i.icon-fixed-width.icon-gamepad
-                    span Games
-              else
-                li(class=(activeNav == 'about' ? 'active' : ''))
-                  a(href="#")
-                    i.icon-fixed-width.icon-info-sign
-                    span About
-                li(class=(activeNav == 'contact' ? 'active' : ''))
-                  a(href="#")
-                    i.icon-fixed-width.icon-envelope
-                    span Contact
-    .container-fluid
-      .span4.center
+        ul.nav.navbar-nav
+          if currentUser
+            li(class=activeNav('dashboard'))
+              a(href='/dashboard')
+                i.icon-fixed-width.icon-gamepad
+                span Dashboard
+            li(class=activeNav('games'))
+              a(href='/games')
+                i.icon-fixed-width.icon-gamepad
+                span Games
+          else
+            li(class=activeNav('about'))
+              a(href="/about")
+                i.icon-fixed-width.icon-info-sign
+                span About
+            li(class=activeNav('contact'))
+              a(href="/contact")
+                i.icon-fixed-width.icon-envelope
+                span Contact
+    .container
+      .col-4.center
         if flash
           .alert.alert-block(class=('alert-' + flash.type))
             button.close(type='button', data-dismiss='alert') &times;
             = flash.message
       block content
+    .navbar.navbar-fixed-bottom
+      p.navbar-text.text-center.
+        Designed and built by <a href='http://twitter.com/dhruvasagar'
+        target='_blank'>@dhruvasagar</a>
     script(src="/js/jquery.js")
     script(src="/js/knockout.js")
     script(src="/js/bootstrap.js")

@@ -1,0 +1,16 @@
+extends ../layouts/layout
+
+block content
+  .col-4.center.contact
+    form.well(method='post', action='/contact')
+      fieldset
+        legend Contact
+
+        .form-group
+          input.form-control(type='email', name='email', placeholder='Enter your email')
+        .form-group
+          input.form-control(type='text', name='subject', placeholder='Enter Subject')
+        .form-group
+          textarea.form-control(rows=5, name='message', placeholder='Enter Message')
+
+        button.btn.btn-primary(type='submit') Send

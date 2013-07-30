@@ -1,9 +1,11 @@
-.input-prepend.box-shadow
-  span.add-on
-    i.icon-envelope
-  input.span3(type='email', name='user[email]', required, value=user.email || '', placeholder='Enter Email')
+.form-group
+  .input-group
+    span.input-group-addon
+      i.icon-envelope
+    input.form-control(type='email', name='user[email]', required, value=user.email || '', placeholder='Enter Email')
 
-.input-prepend.box-shadow
-  span.add-on.required
-    i.icon-key
-  input.span3#password(type='password', name='user[password]', required, pattern='.{6,}', title="Minimum 6 characters", value=user.password || '', placeholder='Enter Password', data-bind='value: password, valueUpdate: "afterkeydown"')
+.form-group
+  .input-group
+    span.input-group-addon.required
+      i.icon-key
+    input.form-control#password(type='password', name='user[password]', required, pattern='.{6,}', title="Minimum 6 characters", value=user.password || '', placeholder='Enter Password', data-bind='value: password, valueUpdate: "afterkeydown"')

@@ -1,7 +1,7 @@
 extends ../layouts/layout
 
 block content
-  .span4.center
+  .col-4.center
     form.well(method='post', action='/sessions')
       legend
         small
@@ -29,10 +29,9 @@ block content
       fieldset
         include ../users/fields
 
-      fieldset
-        label.checkbox
+      .checkbox
+        label
           input(type='checkbox', name='remember_me')
           span Remember me
 
-      fieldset
-        button.btn.btn-primary(type='submit') Submit
+      button.btn.btn-primary(type='submit') Submit

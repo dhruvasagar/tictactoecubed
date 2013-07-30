@@ -1,10 +1,10 @@
 extends ../layouts/layout
 
 block content
-  .row-fluid.mb20
-    .span4(data-bind="if: player1")
+  .row.mb20
+    .col-4(data-bind="if: player1")
       .well.player(data-bind="template: {name: 'playerTemplate', data: {index: 1, player: player1()}}, css: {turn: player1().turn}")
-    .span4.game
+    .col-4.game
       .tictactoecubed(data-bind='with: tictactoecubed')
         .tictactoes(data-bind='foreach: tictactoes, css: {solved: isSolved}')
           .tictacrow(data-bind='foreach: $data')
@@ -14,11 +14,11 @@ block content
                 input(class='tictoe', data-bind="enable: isActive, event: {keypress: keypressed}, css: {won: won}, value: value")
           .clearfix
         .clearfix
-    .span4(data-bind="if: player2, visible: player2")
+    .col-4(data-bind="if: player2, visible: player2")
       .well.player(data-bind="template: {name: 'playerTemplate', data: {index: 2, player: player2()}}, css: {turn: player2().turn}")
-    .span4(data-bind="ifnot: player2, visible: !player2()")
+    .col-4(data-bind="ifnot: player2, visible: !player2()")
       .well.player(data-bind="template: {name: 'playerBlankTemplate'}")
-  .row-fluid
+  .row
     #chatBox.well
       legend
         span Chat
@@ -28,7 +28,7 @@ block content
             i.icon.icon-remove
       .chats(data-bind='foreach: messages')
         .chat(data-bind="template: {name: 'messageTemplate', data: $data, afterRender: $root.scrollChat}")
-      input#chatMessage.input-block-level(type='text', name='chatMessage', disabled, data-bind='event: {keypress: sendMessage}')
+      input.form-control#chatMessage.input-block-level(type='text', name='chatMessage', disabled, data-bind='event: {keypress: sendMessage}', placeholder='Enter message')
 
 block scripts
   script(type="text/html", id="playerTemplate")

@@ -1,23 +1,40 @@
 extends ../layouts/layout
 
 block content
-  .row-fluid
-    legend
+  .row
+    legend(style="line-height: 40px;")
       a.btn.btn-success.pull-right(href='/games/new')
         i.icon-fixed-width.icon-plus
         span New Game
       span Games
     .legend
+      .box Status Color Legend:
       .box.waiting Waiting
       .box.started Started
       .box.forfeited Forfeited
       .box.finished Finished
     .clear
     .games(data-bind='foreach: games')
-      .well.game-card(data-bind='click: showGame, css: state')
-        .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player1}")
-        .vs.pull-left VS
-        .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player2}")
+      .well.game-card.col-4.pull-left(data-bind='click: showGame, css: state')
+        div
+          .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player1}")
+          .vs.pull-left VS
+          .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player2}")
+        .clear
+        div.share.text-center
+          span.lbl Share Via
+          a.facebook(href='#')
+            span.icon-stack
+              i.icon-sign-blank.icon-stack-base
+              i.icon-facebook.icon-light(data-share-via='facebook', data-bind='click: shareClick')
+          a.twitter
+            span.icon-stack
+              i.icon-sign-blank.icon-stack-base
+              i.icon-twitter.icon-light
+          a.google
+            span.icon-stack
+              i.icon-sign-blank.icon-stack-base
+              i.icon-google-plus.icon-light
 
 block scripts
   script(type='text/html', id='playerTemplate')
@@ -25,8 +42,8 @@ block scripts
       .pull-left
         img(data-bind='attr: {src: avatar}', style="padding-right: 5px;")
       .name(data-bind="text: name")
-    data(data-bind='ifnot: $data')
-      a.btn.btn-primary.join(href='#', data-bind="click: $parent.joinGame, css: {disabled: !$parent.canJoin()}") Join
+    div(data-bind='ifnot: $data')
+      a.btn.btn-large.btn-primary.join(href='#', data-bind="click: $parent.joinGame, css: {disabled: !$parent.canJoin()}") Join
   != js('models/player')
   != js('models/games')
   script(type='text/javascript')

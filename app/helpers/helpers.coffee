@@ -24,16 +24,14 @@ currentUser = (req, res) ->
         res.locals.currentUser = user if user
 
 activeNav = (req, res) ->
-  if req.session.currentUserId
-    if req.path == '/'
-      res.locals.activeNav = 'dashboard'
-    else if req.path.match 'games'
-      res.locals.activeNav = 'games'
-  else
-    if req.path.match 'about'
-      req.locals.activeNav = 'about'
-    else if req.path.match 'contact'
-      req.locals.activeNav = 'contact'
+  res.locals.activeNav = (href) ->
+    if req.session.currentUserId
+      if ( req.path.match('dashboard') && href == 'dashboard') || ( req.path.match('games') && href == 'games' )
+        return 'active'
+    else
+      if ( req.path.match('about') && href == 'about' ) || ( req.path.match('contact') and href == 'contact' )
+        return 'active'
+    return ''
 
 module.exports = exports = (req, res) ->
   activeNav req, res

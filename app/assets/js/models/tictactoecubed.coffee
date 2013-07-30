@@ -24,13 +24,13 @@ class @TicTacToeCubed
           return [i, j]
     null
 
+  played: (tictactoe, indexOfTicToe) ->
+    @game.step(@indexOf(tictactoe), indexOfTicToe)
+
   activate: (flag = true) ->
     for tictactoerow in @tictactoes()
       for tictactoe in tictactoerow
         tictactoe.active(flag)
-
-  played: (tictactoe, indexOfTicToe) ->
-    @game.step(@indexOf(tictactoe), indexOfTicToe)
 
   winner_tic: ->
     for i in [0..2]

@@ -6,7 +6,7 @@ module.exports =
     game.join req.session.currentUserId
     game.save (err, game) ->
       if game
-        res.redirect '/games/' + game.id
+        res.redirect "/games/#{game.id}"
       else
         res.redirect '/games'
 
@@ -20,7 +20,7 @@ module.exports =
           game: game
       else
         req.flash 'info', 'Game created'
-        res.redirect '/games/' + game.id
+        res.redirect "/games/#{game.id}"
 
   show: (req, res) ->
     Game.findById(req.param('id'))
@@ -41,10 +41,9 @@ module.exports =
         game.save (err) ->
           if err
             req.flash 'error', err.message
-            res.redirect '/games/' + game.id
           else
             req.flash 'info', 'Joined Game'
-            res.redirect '/games/' + game.id
+          res.redirect "/games#{game.id}"
     return
 
   index: (req, res) ->
@@ -58,7 +57,7 @@ module.exports =
     Game.findById req.param('id'), (err, game) ->
       if game
         req.flash 'info', 'You are now observing the game'
-        res.redirect '/games/' + game.id
+        res.redirect "/games/#{game.id}"
       else
         req.flash 'error', 'Game not found'
         res.redirect '/games'

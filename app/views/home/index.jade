@@ -1,1 +1,42 @@
 extends ../layouts/layout
+
+block content
+  .jumbotron.text-center
+    h1 Tic Tac Toe <sup>3</sup>
+    p.lead.
+      This is a very interesting variation of the well known Tic Tac Toe you
+      might remember playing in your childhood.
+    p.
+      My original inspiration came
+      after reading this article - <a
+        href='http://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe/'
+        target='_blank'>Ultimate Tic Tac Toe</a>.
+
+  .container
+    .panel
+      .panel-heading
+        h3.panel-title The Rules
+      p.
+        Here are the rules of the game. The rules are designed in a way such
+        that it adds a lot of dynamics to the game and makes it considerably
+        more interesting and requires strategizing as opposed to the traditional
+        one.
+      .panel-footer
+        ol
+          li.
+            Each turn you mark off 1 of the small squares, just like you would
+            in a game of the usual TicTacToe.
+          li.
+            Your move then determines your opponents next move. Whichever square
+            you played in, your opponent has to play next in that board of the
+            game.
+          li.
+            If that board has already been won, or has exhausted all it's
+              squares resulting in tie, you get to play anywhere on any of the
+              boards.
+          li.
+            When you win 3 in a line <em>( row | column | diagonal )</em> you win that
+            board.
+          li.
+            You need to win 3 small boards in a line <em>( row | column | diagonal )</em>
+            to <strong>win</strong> the game.

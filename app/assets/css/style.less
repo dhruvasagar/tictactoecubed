@@ -1,10 +1,9 @@
 @import 'bootstrap.css';
-@import 'bootstrap-responsive.css';
 
 @waiting: #ff8e00;
-@started: #269926;
-@forfeited: #ff0700;
-@finished: #0a67a3;
+@started: #96CA2D;
+@forfeited: #de472b;
+@finished: #3d8ad1;
 
 @github: #333333;
 @google: #cc3732;
@@ -19,6 +18,10 @@ body {
   margin-bottom: 20px;
 }
 
+.no-margin {
+  margin: 0;
+}
+
 .clear {
   clear: both;
 }
@@ -28,40 +31,49 @@ body {
   margin: 0 auto;
 }
 
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 50px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+}
+
+a.github {
+  color: @github;
+}
+
+a.google {
+  color: @google;
+}
+
+a.facebook {
+  color: @facebook;
+}
+
 .social-logins {
   font-size: 17px;
   margin-bottom: 10px;
+}
 
-  a.github {
-    color: @github;
-  }
-
-  a.google {
-    color: @google;
-  }
-
-  a.facebook {
-    color: @facebook;
+.contact {
+  input, textarea {
+    width: 96%;
   }
 }
 
-.no-margin {
-  margin: 0;
-}
+.jumbotron {
+  padding: 20px 60px;
 
-span.add-on.required > .circle {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  border-radius: 100px;
-}
+  h1 {
+    font-size: 80px;
+  }
 
-span.add-on.required > .circle.red {
-  background-color: darkred;
-}
-
-span.add-on.required > .circle.green {
-  background-color: darkgreen;
+  p.lead {
+    font-size: 24px;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
 }
 
 .legend {
@@ -89,14 +101,13 @@ span.add-on.required > .circle.green {
 
 .games {
   .game-card {
-    float: left;
-    width: 29%;
+    width: 32%;
+    max-width: 400px;
     margin: 5px;
     cursor: pointer;
 
     .vs {
-      width: 30px;
-      padding: 0 15px;
+      padding: 0 20px;
       font-size: 20px;
       line-height: 40px;
     }
@@ -108,6 +119,23 @@ span.add-on.required > .circle.green {
         font-size: 16px;
         font-weight: bold;
         padding-left: 5px;
+      }
+    }
+
+    .join {
+      width: 100%;
+      padding: 8px 19px;
+    }
+
+    .share {
+      padding-top: 20px;
+
+      .lbl {
+        font-weight: bold;
+        padding-right: 10px;
+      }
+      .lbl:after {
+        content: ':';
       }
     }
   }
@@ -130,7 +158,7 @@ span.add-on.required > .circle.green {
   .tictactoecubed {
     width: 50%;
     margin: 0 auto;
-    min-width: 336px;
+    min-width: 310px;
 
     .tictactoes {
       text-align: center;
@@ -138,8 +166,8 @@ span.add-on.required > .circle.green {
 
       .highlight {
         float: left;
-        width: 106px;
-        height: 72px;
+        width: 102px;
+        height: 78px;
         z-index: -1;
         padding: 3px;
         position: relative;
@@ -192,6 +220,12 @@ span.add-on.required > .circle.green {
   }
 }
 
+.player {
+  h3 {
+    line-height: 35px;
+    padding-left: 40px;
+  }
+}
 .player.turn {
   background-color: #da4f49;
 }
@@ -212,7 +246,7 @@ span.add-on.required > .circle.green {
   }
 
   .chats {
-    height: 225px;
+    height: 185px;
     overflow-x: hidden;
     overflow-y: auto;
     margin-bottom: 10px;
@@ -221,6 +255,7 @@ span.add-on.required > .circle.green {
       padding: 5px;
 
       .message {
+        width: 95%;
         margin: 0 5px;
         line-height: 16px;
 
