@@ -18,6 +18,7 @@
     "gravatar": "*",
     "mongoose": "*",
     "socket.io": "*",
+    "nodemailer": "*",
     "coffee-script": "*",
     "connect-mongo": "*",
     "connect-assets": "*",
