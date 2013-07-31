@@ -36,4 +36,4 @@ module.exports =
             email: user.email
       res.clearCookie('loginToken')
       req.session.destroy()
-    res.redirect '/sessions/new'
+    res.redirect '/'
