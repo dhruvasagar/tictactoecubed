@@ -49,3 +49,14 @@ class @Games
     _games = $.map games, (game) ->
       new Game(game)
     @games = ko.observableArray(_games)
+    @activeTab = ko.observable('started')
+    @filteredGames = ko.observableArray(ko.utils.arrayFilter(_games, (game) ->
+      game.state() == 'started'
+    ))
+
+  tabClick: (data, event) ->
+    href = $(event.target).attr('href').substring(1)
+    @activeTab(href)
+    @filteredGames(ko.utils.arrayFilter @games(), (game) ->
+      game.state() == href
+    )

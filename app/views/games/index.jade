@@ -2,39 +2,42 @@ extends ../layouts/layout
 
 block content
   .row
-    legend(style="line-height: 40px;")
+    ul.nav.nav-tabs#games-tab
+      li(data-bind="css: {active: activeTab() == 'started'}")
+        a(href='#started', data-bind='click: tabClick') Started
+      li(data-bind="css: {active: activeTab() == 'waiting'}")
+        a(href='#waiting', data-bind='click: tabClick') Waiting
+      li(data-bind="css: {active: activeTab() == 'forfeited'}")
+        a(href='#forfeited', data-bind='click: tabClick') Forfeited
+      li(data-bind="css: {active: activeTab() == 'finished'}")
+        a(href='#finished', data-bind='click: tabClick') Finished
       a.btn.btn-success.pull-right(href='/games/new')
         i.icon-fixed-width.icon-plus
         span New Game
-      span Games
-    .legend
-      .box Status Color Legend:
-      .box.waiting Waiting
-      .box.started Started
-      .box.forfeited Forfeited
-      .box.finished Finished
-    .clear
-    .games(data-bind='foreach: games')
-      .well.game-card.col-4.pull-left(data-bind='click: showGame, css: state')
-        div
-          .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player1}")
-          .vs.pull-left VS
-          .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player2}")
-        .clear
-        div.share.text-center
-          span.lbl Share Via
-          a.facebook(href='#')
-            span.icon-stack
-              i.icon-sign-blank.icon-stack-base
-              i.icon-facebook.icon-light(data-share-via='facebook', data-bind='click: shareClick')
-          a.twitter
-            span.icon-stack
-              i.icon-sign-blank.icon-stack-base
-              i.icon-twitter.icon-light
-          a.google
-            span.icon-stack
-              i.icon-sign-blank.icon-stack-base
-              i.icon-google-plus.icon-light
+    .tab-content
+      .tab-pane.active#started
+        .games(data-bind='foreach: filteredGames')
+          .well.game-card.col-4.pull-left(data-bind='click: showGame, css: state')
+            a.close(href="#") &times;
+            div
+              .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player1}")
+              .vs.pull-left VS
+              .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player2}")
+            .clear
+            div.share.text-center
+              span.lbl Share Via
+              a.facebook(href='#')
+                span.icon-stack
+                  i.icon-sign-blank.icon-stack-base
+                  i.icon-facebook.icon-light(data-share-via='facebook', data-bind='click: shareClick')
+              a.twitter
+                span.icon-stack
+                  i.icon-sign-blank.icon-stack-base
+                  i.icon-twitter.icon-light
+              a.google
+                span.icon-stack
+                  i.icon-sign-blank.icon-stack-base
+                  i.icon-google-plus.icon-light
 
 block scripts
   script(type='text/html', id='playerTemplate')
@@ -48,5 +51,4 @@ block scripts
   != js('models/games')
   script(type='text/javascript')
     var socket = io.connect(location.host);
-
     ko.applyBindings(new Games(!{JSON.stringify(games)}, socket));
