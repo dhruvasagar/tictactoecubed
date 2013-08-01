@@ -29,7 +29,7 @@ activeNav = (req, res) ->
       if ( req.path.match('dashboard') && href == 'dashboard') || ( req.path.match('games') && href == 'games' )
         return 'active'
     else
-      if ( req.path.match('about') && href == 'about' ) || ( req.path.match('contact') and href == 'contact' )
+      if ( req.path.match('contact') and href == 'contact' )
         return 'active'
     return ''
 

@@ -5,7 +5,6 @@ exports.registerRoutes = (app) ->
   controllers = require('../app/controllers')
 
   app.get '/', controllers.home.index
-  app.get '/about', controllers.home.about
   app.get '/contact', controllers.home.contact
   app.post '/contact', controllers.home.contact
 
