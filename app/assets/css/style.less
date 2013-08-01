@@ -87,6 +87,13 @@ a.facebook {
     margin: 5px;
     cursor: pointer;
 
+    a.close {
+      display: none;
+      position: relative;
+      top: -15px;
+      left: 10px;
+    }
+
     .vs {
       padding: 0 15px;
       font-size: 20px;
@@ -118,6 +125,12 @@ a.facebook {
       .lbl:after {
         content: ':';
       }
+    }
+  }
+
+  .game-card:hover {
+    a.close {
+      display: block;
     }
   }
 }
