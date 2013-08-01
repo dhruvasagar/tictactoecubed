@@ -38,11 +38,11 @@ class Game
 
   joinGame: (data, event) ->
     if $(event.target).hasClass('disabled')
-      return true
+      return
     else
       event.stopPropagation()
       socket.emit('game.join')
-      location.href = @join_url
+      location.href = data.join_url
 
 class @Games
   constructor: (games, socket) ->

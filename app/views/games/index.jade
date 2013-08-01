@@ -20,9 +20,9 @@ block content
           .well.game-card.col-4.pull-left(data-bind='click: showGame, css: state')
             a.close(href="#") &times;
             div
-              .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player1}")
+              .player.pull-left(data-bind="template: {name: 'playerTemplate', data: {join_url: join_url, player: player1()}}")
               .vs.pull-left VS
-              .player.pull-left(data-bind="template: {name: 'playerTemplate', data: player2}")
+              .player.pull-left(data-bind="template: {name: 'playerTemplate', data: {join_url: join_url, player: player2()}}")
             .clear
             div.share.text-center
               span.lbl Share Via
@@ -41,11 +41,11 @@ block content
 
 block scripts
   script(type='text/html', id='playerTemplate')
-    div(data-bind='if: $data')
+    div(data-bind='if: player')
       .pull-left
-        img(data-bind='attr: {src: avatar}', style="padding-right: 5px;")
-      .name(data-bind="text: name")
-    div(data-bind='ifnot: $data')
+        img(data-bind='attr: {src: player.avatar}', style="padding-right: 5px;")
+      .name(data-bind="text: player.name")
+    div(data-bind='ifnot: player')
       a.btn.btn-large.btn-primary.join(href='#', data-bind="click: $parent.joinGame, css: {disabled: !$parent.canJoin()}") Join
   != js('models/player')
   != js('models/games')
