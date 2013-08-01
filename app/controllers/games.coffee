@@ -43,7 +43,7 @@ module.exports =
             req.flash 'error', err.message
           else
             req.flash 'success', 'Joined Game'
-          res.redirect "/games#{game.id}"
+          res.redirect "/games/#{game.id}"
     return
 
   index: (req, res) ->
