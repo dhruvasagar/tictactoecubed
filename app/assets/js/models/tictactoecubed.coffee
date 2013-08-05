@@ -30,8 +30,9 @@ class @TicTacToeCubed
   activate: (flag = true, highlightflag = true) ->
     for tictactoerow in @tictactoes()
       for tictactoe in tictactoerow
-        tictactoe.active(flag)
-        tictactoe.highlight(highlightflag)
+        unless tictactoe.won() || tictactoe.draw()
+          tictactoe.active(flag)
+          tictactoe.highlight(highlightflag)
 
   winner_tic: ->
     for i in [0..2]
