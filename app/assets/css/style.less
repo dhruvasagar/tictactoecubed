@@ -1,5 +1,6 @@
 @import 'bootstrap.css';
 
+@won: #9d261d;
 @waiting: #ff8e00;
 @started: #96CA2D;
 @forfeited: #de472b;
@@ -145,7 +146,7 @@ a.facebook {
       text-align: center;
       width: 400px;
 
-      .highlight {
+      .wonbox, .highlight {
         float: left;
         width: 102px;
         height: 78px;
@@ -154,6 +155,20 @@ a.facebook {
         position: relative;
         margin-right: -113px;
         background-color: green; //#51a351;
+      }
+
+      .wonbox {
+        color: @won;
+        z-index: 1;
+        font-size: 119px;
+        line-height: 55px;
+        background-color: transparent;
+      }
+      .wonbox.won_x:before {
+        content: 'x';
+      }
+      .wonbox.won_y:before {
+        content: 'o';
       }
 
       .tictoes {
@@ -173,7 +188,7 @@ a.facebook {
         }
 
         .tictoe.won {
-          color: #9d261d;
+          color: @won;
           font-weight: bold;
         }
 
@@ -187,7 +202,7 @@ a.facebook {
       }
 
       .tictoes.won {
-        background-color: #9d261d;
+        background-color: @won;
       }
 
       .tictoes:last-child {

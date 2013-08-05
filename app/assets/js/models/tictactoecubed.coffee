@@ -27,11 +27,11 @@ class @TicTacToeCubed
   played: (tictactoe, indexOfTicToe) ->
     @game.step(@indexOf(tictactoe), indexOfTicToe)
 
-  activate: (flag = true) ->
+  activate: (flag = true, highlightflag = true) ->
     for tictactoerow in @tictactoes()
       for tictactoe in tictactoerow
         tictactoe.active(flag)
-        tictactoe.highlight(flag)
+        tictactoe.highlight(highlightflag)
 
   winner_tic: ->
     for i in [0..2]

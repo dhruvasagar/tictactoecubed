@@ -37,7 +37,8 @@ class @Game
             player.id() == move.user._id
           user_id_cache[move.user._id] = player
         @tictactoecubed().move(move.position[0], move.position[1], user_id_cache[move.user._id])
-      @start()
+
+    @start()
 
     if socket
       socket.on 'connect', =>
@@ -77,10 +78,10 @@ class @Game
 
     @currentPlayer(nextPlayer)
 
-    @tictactoecubed().activate(false)
+    @tictactoecubed().activate(false, false)
     tictactoe = @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]]
     if tictactoe.won() || tictactoe.draw()
-      @tictactoecubed().activate() if nextPlayer.isCurrentPlayer()
+      @tictactoecubed().activate(nextPlayer.isCurrentPlayer())
     else
       tictactoe.active(true) if nextPlayer.isCurrentPlayer()
       tictactoe.highlight(true)
@@ -96,6 +97,7 @@ class @Game
         ]
 
   start: ->
+    console.log 'inside start()'
     @state('started')
     if @moves && @moves.length
       lastMove = @moves[@moves.length-1]
@@ -106,7 +108,7 @@ class @Game
     else
       @currentPlayer(@players()[0])
       @currentPlayer().turn(true)
-      @tictactoecubed().activate() if @currentPlayer().isCurrentPlayer()
+      @tictactoecubed().activate(@currentPlayer().isCurrentPlayer())
 
   addPlayer: (player) ->
     player.tic ?= 'x' if @players().length == 0

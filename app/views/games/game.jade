@@ -9,7 +9,8 @@ block content
         .tictactoes(data-bind='foreach: tictactoes, css: {solved: isSolved}')
           .tictacrow(data-bind='foreach: $data')
             .highlight(data-bind='visible: highlight')
-            .tictoes(data-bind='foreach: tictoes, css: {won: won}')
+            .wonbox(data-bind='visible: won, css: {won_x: won_x, won_y: won_y}')
+            .tictoes(data-bind='foreach: tictoes, css: {won_x: won_x, won_y: won_y}')
               .ticrow(data-bind='foreach: $data')
                 input(class='tictoe', data-bind="enable: isActive, event: {keypress: keypressed}, css: {won: won}, value: value")
           .clearfix
