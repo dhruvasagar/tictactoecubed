@@ -30,9 +30,14 @@ class Game
 
   shareClick: (data, event) ->
     target = $(event.target)
-    if target.attr('data-share-via') == 'facebook'
-      url = location.protocol + '//' + location.host + '/' + @url
+    share_via = target.attr('data-share-via')
+    url = location.protocol + '//' + location.host + @url
+    if share_via == 'facebook'
       window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url), 'facebook-share-dialog', 'width=626,height=436')
+    else if share_via == 'twitter'
+      window.open("https://twitter.com/share?url=#{url}&text=Join me in a game of tic tac toe cubed&hashtags=#tictactoecubed", 'twitter-share-dialog', 'width=626,height=436')
+    else if share_via == 'google'
+      window.open("https://plus.google.com/share?url=#{url}", 'google-share-dialog', 'width=626,height=436')
     event.stopPropagation()
     return false
 

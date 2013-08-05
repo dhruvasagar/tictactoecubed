@@ -1,3 +1,4 @@
+nconf = require('nconf')
 passport = require('passport')
 middlewares = require('./middlewares')
 
@@ -15,10 +16,7 @@ exports.registerRoutes = (app) ->
   app.del '/sessions', middlewares.authenticateUser, controllers.sessions.delete
 
   app.get '/auth/facebook', passport.authenticate('facebook',
-    scope: [
-      'email'
-      'publish_stream'
-    ]
+    scope: nconf.getByEnv('oauth:facebook:scope')
   )
   app.get '/auth/facebook/callback', passport.authenticate('facebook',
     failureRedirect: '/sessions/new'
