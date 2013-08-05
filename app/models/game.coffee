@@ -43,10 +43,10 @@ module.exports = exports = (Schema, Move, ChatMessage) ->
   Game.path('moves').validate (moves) ->
     moves.length <= 1 || ( moves.length > 1 &&
       # Last 2 moves shouldn't be the same
-      !moves[moves.length-1].equals(moves[moves.length-2]) &&
+      !moves[moves.length-1].equals(moves[moves.length-2]) ) # &&
       # Last move must be according to second last
-      moves[moves.length-1].position[0].toString() ==
-        moves[moves.length-2].position[1].toString() )
+      # moves[moves.length-1].position[0].toString() ==
+      # moves[moves.length-2].position[1].toString() )
   , 'Invalid Move'
 
   Game.pre 'save', (next) ->

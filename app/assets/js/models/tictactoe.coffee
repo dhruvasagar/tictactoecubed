@@ -1,6 +1,7 @@
 class @TicTacToe
   constructor: (tictactoecubed, game)->
     @won = ko.observable(false)
+    @draw = ko.observable(false)
     @game = game
     @active = ko.observable(false)
     @highlight = ko.observable(false)

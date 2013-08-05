@@ -10,7 +10,7 @@ class @Game
 
     if game.players && game.players.length
       for player in game.players
-        @join player
+        @addPlayer(player)
 
     @player1 = ko.computed =>
       return @players()[0] if @players()[0]
@@ -37,6 +37,7 @@ class @Game
             player.id() == move.user._id
           user_id_cache[move.user._id] = player
         @tictactoecubed().move(move.position[0], move.position[1], user_id_cache[move.user._id])
+      @start()
 
     if socket
       socket.on 'connect', =>
@@ -65,7 +66,7 @@ class @Game
       socket.on 'move', (move) =>
         @step(move.position[0], move.position[1], true)
 
-  step: (indexOfTicTacToe, indexOfTicToe, remote = false) =>
+  step: (indexOfTicTacToe, indexOfTicToe, remote = false) ->
     prevPlayer = @currentPlayer()
     prevPlayerIndex = @players.indexOf(prevPlayer)
     nextPlayerIndex = Number !prevPlayerIndex
@@ -77,8 +78,12 @@ class @Game
     @currentPlayer(nextPlayer)
 
     @tictactoecubed().activate(false)
-    @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]].active(true) if nextPlayer.isCurrentPlayer()
-    @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]].highlight(true)
+    tictactoe = @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]]
+    if tictactoe.won() || tictactoe.draw()
+      @tictactoecubed().activate() if nextPlayer.isCurrentPlayer()
+    else
+      tictactoe.active(true) if nextPlayer.isCurrentPlayer()
+      tictactoe.highlight(true)
 
     if remote
       @tictactoecubed().move(indexOfTicTacToe, indexOfTicToe, prevPlayer)
@@ -90,7 +95,7 @@ class @Game
           indexOfTicToe
         ]
 
-  start: =>
+  start: ->
     @state('started')
     if @moves && @moves.length
       lastMove = @moves[@moves.length-1]
@@ -103,21 +108,24 @@ class @Game
       @currentPlayer().turn(true)
       @tictactoecubed().activate() if @currentPlayer().isCurrentPlayer()
 
-  join: (player) =>
+  addPlayer: (player) ->
     player.tic ?= 'x' if @players().length == 0
     player.tic ?= 'o' if @players().length == 1
     @players.push(new Player(player)) if @players().length < 2
+
+  join: (player) ->
+    @addPlayer(player)
     @state('waiting') if @players().length == 1
     @start() if @players().length == 2
 
-  getPlayerByTic: (tic) =>
-    ko.utils.arrayFirst @players(), (player) =>
+  getPlayerByTic: (tic) ->
+    ko.utils.arrayFirst @players(), (player) ->
       player.tic() == tic
 
-  scrollChat: =>
+  scrollChat: ->
     $('.chats').prop('scrollTop', $('.chats').prop('scrollHeight'))
 
-  joinGame: (data, event) =>
+  joinGame: (data, event) ->
     if $(event.target).hasClass('disabled')
       event.preventDefault()
       return false
@@ -125,7 +133,7 @@ class @Game
       socket.emit('game.join')
       location.href = '/games/' + @id() + '/join'
 
-  sendMessage: (data, event) =>
+  sendMessage: (data, event) ->
     target = $(event.target)
     if event.keyCode == 13
       socket.emit('sendMessage', target.val())
