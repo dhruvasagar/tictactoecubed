@@ -28,8 +28,6 @@
     "passport-google-oauth": "*"
   },
   "devDependencies": {
-    "grunt": "*",
-    "grunt-contrib-coffee": "*",
     "mocha": "*",
     "should": "*"
   },
