@@ -149,11 +149,19 @@ class @Game
     target = $(event.target)
     share_via = target.attr('data-share-via')
     url = location.protocol + '//' + location.host + @url
+
+    share_dialog = []
     if share_via == 'facebook'
-      window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url), 'facebook-share-dialog', 'width=626,height=436')
+      share_dialog.push "https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent(url)}"
+      share_dialog.push 'facebook-share-dialog'
     else if share_via == 'twitter'
-      window.open("https://twitter.com/share?url=#{url}&text=Join me in a game of tic tac toe cubed&hashtags=#tictactoecubed", 'twitter-share-dialog', 'width=626,height=436')
+      share_dialog.push "https://twitter.com/share?url=#{url}&hashtags=tictactoecubed&text=Join me in a game of tic tac toe cubed"
+      share_dialog.push 'twitter-share-dialog'
     else if share_via == 'google'
-      window.open("https://plus.google.com/share?url=#{url}", 'google-share-dialog', 'width=626,height=436')
+      share_dialog.push "https://plus.google.com/share?url=#{url}"
+      share_dialog.push 'google-share-dialog'
+    share_dialog.push 'width=626,height=436'
+    window.open.apply window, share_dialog
+
     event.stopPropagation()
     return false
