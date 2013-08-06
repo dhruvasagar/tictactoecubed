@@ -1,5 +1,4 @@
 class Game
-
   constructor: (game) ->
     @id = ko.observable(game._id)
     @state = ko.observable(game.state)
@@ -62,6 +61,5 @@ class @Games
   tabClick: (data, event) ->
     href = $(event.target).attr('href').substring(1)
     @activeTab(href)
-    @filteredGames(ko.utils.arrayFilter @games(), (game) ->
+    @filteredGames ko.utils.arrayFilter @games(), (game) ->
       game.state() == href
-    )

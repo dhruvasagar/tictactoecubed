@@ -3,7 +3,7 @@ extends ../layouts/layout
 block content
   .row.mb20
     .col-4(data-bind="if: player1")
-      .well.player(data-bind="template: {name: 'playerTemplate', data: {index: 1, player: player1()}}, css: {turn: player1().turn}")
+      .well.player(data-bind="template: {name: 'playerTemplate', data: player1}, css: {turn: player1().turn}")
     .col-4.game
       .tictactoecubed(data-bind='with: tictactoecubed')
         .tictactoes(data-bind='foreach: tictactoes, css: {solved: isSolved}')
@@ -16,7 +16,7 @@ block content
           .clearfix
         .clearfix
     .col-4(data-bind="if: player2, visible: player2")
-      .well.player(data-bind="template: {name: 'playerTemplate', data: {index: 2, player: player2()}}, css: {turn: player2().turn}")
+      .well.player(data-bind="template: {name: 'playerTemplate', data: player2}, css: {turn: player2().turn}")
     .col-4(data-bind="ifnot: player2, visible: !player2()")
       .well.player(data-bind="template: {name: 'playerBlankTemplate'}")
   .row
@@ -33,15 +33,12 @@ block content
 
 block scripts
   script(type="text/html", id="playerTemplate")
-    legend
-      span Player 
-      span(data-bind='text: index')
     .pull-left
-      img.avatar(data-bind='attr: {src: player.avatar}')
-    h3(data-bind='text: player.name')
+      img.avatar(data-bind='attr: {src: avatar}')
+    h3(data-bind='text: name')
     .info
       span Tic: 
-      span(data-bind='text: player.tic')
+      span(data-bind='text: tic')
   script(type="text/html", id="playerBlankTemplate")
     legend Player 2
     a.btn.btn-primary.join(href='#', data-bind='click: $root.joinGame, css: {disabled: !$root.canJoin()}') Join
