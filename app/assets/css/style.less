@@ -6,13 +6,17 @@
 @forfeited: #de472b;
 @finished: #3d8ad1;
 
+@twitter: #00ACED;
 @github: #333333;
 @google: #cc3732;
 @facebook: #3B5998;
 
-
 body {
   padding-top: 60px;
+}
+
+a {
+  cursor: pointer;
 }
 
 .mb20 {
@@ -60,6 +64,10 @@ a.google {
 
 a.facebook {
   color: @facebook;
+}
+
+a.twitter {
+  color: @twitter;
 }
 
 .social-logins {
@@ -116,23 +124,24 @@ a.facebook {
       padding: 8px 19px;
     }
 
-    .share {
-      padding-top: 20px;
-
-      .lbl {
-        font-weight: bold;
-        padding-right: 10px;
-      }
-      .lbl:after {
-        content: ':';
-      }
-    }
   }
 
   .game-card:hover {
     a.close {
       display: block;
     }
+  }
+}
+
+.share-game {
+  padding-top: 20px;
+
+  .lbl {
+    font-weight: bold;
+    padding-right: 10px;
+  }
+  .lbl:after {
+    content: ':';
   }
 }
 
@@ -243,7 +252,6 @@ a.facebook {
   }
 
   .chats {
-    height: 165px;
     overflow-x: hidden;
     overflow-y: auto;
     margin-bottom: 10px;
@@ -264,6 +272,18 @@ a.facebook {
           content: ':';
         }
       }
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .chats {
+      height: 125px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .chats {
+      height: 400px;
     }
   }
 }
