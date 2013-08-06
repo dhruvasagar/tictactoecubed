@@ -1,0 +1,30 @@
+.games(data-bind='foreach: filteredGames')
+  .well.game-card.col-4.pull-left(data-bind='click: showGame, css: state')
+    a.close(href="#") &times;
+    div
+      .player.pull-left(data-bind="template: {name: 'playerTemplate', data: {join_url: join_url, player: player1()}}")
+      .vs.pull-left VS
+      .player.pull-left(data-bind="template: {name: 'playerTemplate', data: {join_url: join_url, player: player2()}}")
+    .clear
+    div.share-game.text-center
+      span.lbl Share Via
+      a.facebook
+        span.icon-stack
+          i.icon-sign-blank.icon-stack-base
+          i.icon-facebook.icon-light(data-share-via='facebook', data-bind='click: shareClick')
+      a.twitter
+        span.icon-stack
+          i.icon-sign-blank.icon-stack-base
+          i.icon-twitter.icon-light(data-share-via='twitter', data-bind='click: shareClick')
+      a.google
+        span.icon-stack
+          i.icon-sign-blank.icon-stack-base
+          i.icon-google-plus.icon-light(data-share-via='google', data-bind='click: shareClick')
+
+script(type='text/html', id='playerTemplate')
+  div(data-bind='if: player')
+    .pull-left
+      img(data-bind='attr: {src: player.avatar}', style="padding-right: 5px;")
+    .name(data-bind="text: player.name")
+  div(data-bind='ifnot: player')
+    a.btn.btn-large.btn-primary.join(href='#', data-bind="click: $parent.joinGame, css: {disabled: !$parent.canJoin()}") Join

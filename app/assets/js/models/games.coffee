@@ -1,5 +1,5 @@
 class Game
-  constructor: (game) ->
+  constructor: (game, socket) ->
     @id = ko.observable(game._id)
     @state = ko.observable(game.state)
     @winner = ko.observable(game.winner)
@@ -40,18 +40,23 @@ class Game
     event.stopPropagation()
     return false
 
-  joinGame: (data, event) ->
+  joinGame: (data, event) =>
     if $(event.target).hasClass('disabled')
       return
     else
       event.stopPropagation()
+      socket.emit 'game.enter',
+        avatar: user.avatar
+        game_id: @id()
+        user_id: window.currentUserId
+        user_name: user.name
       socket.emit('game.join')
       location.href = data.join_url
 
 class @Games
   constructor: (games, socket) ->
     _games = $.map games, (game) ->
-      new Game(game)
+      new Game(game, socket)
     @games = ko.observableArray(_games)
     @activeTab = ko.observable('started')
     @filteredGames = ko.observableArray(ko.utils.arrayFilter(_games, (game) ->
