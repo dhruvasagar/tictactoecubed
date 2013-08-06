@@ -1,0 +1,15 @@
+div.share-game.text-center
+  span.lbl Share
+  input.form-control(data-bind='value: url, click: selectInput', readonly)
+  a.facebook
+    span.icon-stack
+      i.icon-sign-blank.icon-stack-base
+      i.icon-facebook.icon-light(data-share-via='facebook', data-bind='click: shareClick')
+  a.twitter
+    span.icon-stack
+      i.icon-sign-blank.icon-stack-base
+      i.icon-twitter.icon-light(data-share-via='twitter', data-bind='click: shareClick')
+  a.google
+    span.icon-stack
+      i.icon-sign-blank.icon-stack-base
+      i.icon-google-plus.icon-light(data-share-via='google', data-bind='click: shareClick')

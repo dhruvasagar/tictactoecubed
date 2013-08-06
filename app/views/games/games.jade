@@ -6,20 +6,7 @@
       .vs.pull-left VS
       .player.pull-left(data-bind="template: {name: 'playerTemplate', data: {join_url: join_url, player: player2()}}")
     .clear
-    div.share-game.text-center
-      span.lbl Share Via
-      a.facebook
-        span.icon-stack
-          i.icon-sign-blank.icon-stack-base
-          i.icon-facebook.icon-light(data-share-via='facebook', data-bind='click: shareClick')
-      a.twitter
-        span.icon-stack
-          i.icon-sign-blank.icon-stack-base
-          i.icon-twitter.icon-light(data-share-via='twitter', data-bind='click: shareClick')
-      a.google
-        span.icon-stack
-          i.icon-sign-blank.icon-stack-base
-          i.icon-google-plus.icon-light(data-share-via='google', data-bind='click: shareClick')
+    include share
 .clear
 
 script(type='text/html', id='playerTemplate')

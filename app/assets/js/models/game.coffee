@@ -8,8 +8,8 @@ class @Game
     @currentPlayer = ko.observable()
     @tictactoecubed = ko.observable(new TicTacToeCubed(this))
 
-    @url = "/games/#{@id()}"
-    @join_url = "#{@url}/join"
+    @url = ko.observable("/games/#{@id()}")
+    @join_url = "#{@url()}/join"
 
     if game.players && game.players.length
       for player in game.players
@@ -148,7 +148,7 @@ class @Game
   shareClick: (data, event) ->
     target = $(event.target)
     share_via = target.attr('data-share-via')
-    url = location.protocol + '//' + location.host + @url
+    url = location.protocol + '//' + location.host + @url()
 
     share_dialog = []
     if share_via == 'facebook'
@@ -163,5 +163,10 @@ class @Game
     share_dialog.push 'width=626,height=436'
     window.open.apply window, share_dialog
 
+    event.stopPropagation()
+    return false
+
+  selectInput: (data, event) ->
+    $(event.target).select()
     event.stopPropagation()
     return false

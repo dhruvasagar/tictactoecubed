@@ -15,20 +15,7 @@ block content
                 input(class='tictoe', data-bind="enable: isActive, event: {keypress: keypressed}, css: {won: won}, value: value")
           .clearfix
         .clearfix
-      div.share-game.text-center
-        span.lbl Share Via 
-        a.facebook
-          span.icon-stack
-            i.icon-sign-blank.icon-stack-base
-            i.icon-facebook.icon-light(data-share-via='facebook', data-bind='click: shareClick')
-        a.twitter
-          span.icon-stack
-            i.icon-sign-blank.icon-stack-base
-            i.icon-twitter.icon-light(data-share-via='twitter', data-bind='click: shareClick')
-        a.google
-          span.icon-stack
-            i.icon-sign-blank.icon-stack-base
-            i.icon-google-plus.icon-light(data-share-via='google', data-bind='click: shareClick')
+      include share
     .col-4(data-bind="if: player2, visible: player2")
       .well.player(data-bind="template: {name: 'playerTemplate', data: player2}, css: {turn: player2().turn}")
     .col-4(data-bind="ifnot: player2, visible: !player2()")
