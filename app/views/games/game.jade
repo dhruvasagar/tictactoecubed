@@ -34,6 +34,10 @@ block content
 
 block scripts
   script(type="text/html", id="playerTemplate")
+    .pull-right.text-success.won(title='Winner!', data-bind='visible: winner')
+      span.icon-stack
+        i.icon-circle.icon-stack-base
+        i.icon.icon-trophy
     .pull-left
       img.avatar(data-bind='attr: {src: avatar}')
     h3(data-bind='text: name')

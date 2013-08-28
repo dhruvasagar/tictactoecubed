@@ -2,7 +2,7 @@ class @Game
   constructor: (game, socket) ->
     @id = ko.observable(game._id)
     @moves = game.moves
-    @state = ko.observable(game || 'new')
+    @state = ko.observable(game.state || 'new')
     @players = ko.observableArray([])
     @messages = ko.observableArray([])
     @currentPlayer = ko.observable()
@@ -21,6 +21,11 @@ class @Game
     @player2 = ko.computed =>
       return @players()[1] if @players()[1]
       return false
+
+    if game.winner
+      winner = new Player(game.winner)
+      for player in @players()
+        player.winner(true) if player.id() == winner.id()
 
     @canJoin = ko.computed =>
       !@players()[1] && @players()[0] && !@players()[0].isCurrentPlayer()
@@ -75,17 +80,12 @@ class @Game
     prevPlayerIndex = @players.indexOf(prevPlayer)
     nextPlayerIndex = Number !prevPlayerIndex
     nextPlayer = @players()[nextPlayerIndex]
-
     prevPlayer.turn(false)
-    nextPlayer.turn(true)
-
-    @currentPlayer(nextPlayer)
 
     if remote
       @tictactoecubed().move(indexOfTicTacToe, indexOfTicToe, prevPlayer)
     else
       socket.emit 'move',
-        user: @currentPlayer().id()
         game_won: @tictactoecubed().isSolved()
         position: [
           indexOfTicTacToe,
@@ -93,9 +93,13 @@ class @Game
         ]
 
     if @tictactoecubed().isSolved()
+      prevPlayer.winner(true)
       prev_tictactoe = @tictactoecubed().tictactoes()[indexOfTicTacToe[0]][indexOfTicTacToe[1]]
       prev_tictactoe.highlight(false)
     else
+      nextPlayer.turn(true)
+      @currentPlayer(nextPlayer)
+
       tictactoe = @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]]
       @tictactoecubed().activate(false, false)
       if tictactoe.won() || tictactoe.draw()

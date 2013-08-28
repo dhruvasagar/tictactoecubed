@@ -5,6 +5,7 @@ class @Player
     @turn = ko.observable(false)
     @name = ko.observable(playerData.name || 'Player')
     @avatar = ko.observable(playerData.avatar || 'http://www.gravatar.com/avatar' )
+    @winner = ko.observable(false)
 
     @isCurrentPlayer = ko.computed =>
       return @id() == window.currentUserId
