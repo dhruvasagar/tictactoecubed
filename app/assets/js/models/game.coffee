@@ -81,23 +81,28 @@ class @Game
 
     @currentPlayer(nextPlayer)
 
-    @tictactoecubed().activate(false, false)
-    tictactoe = @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]]
-    if tictactoe.won() || tictactoe.draw()
-      @tictactoecubed().activate(nextPlayer.isCurrentPlayer())
-    else
-      tictactoe.active(true) if nextPlayer.isCurrentPlayer()
-      tictactoe.highlight(true)
-
     if remote
       @tictactoecubed().move(indexOfTicTacToe, indexOfTicToe, prevPlayer)
     else
       socket.emit 'move',
         user: @currentPlayer().id()
+        game_won: @tictactoecubed().isSolved()
         position: [
           indexOfTicTacToe,
           indexOfTicToe
         ]
+
+    if @tictactoecubed().isSolved()
+      prev_tictactoe = @tictactoecubed().tictactoes()[indexOfTicTacToe[0]][indexOfTicTacToe[1]]
+      prev_tictactoe.highlight(false)
+    else
+      tictactoe = @tictactoecubed().tictactoes()[indexOfTicToe[0]][indexOfTicToe[1]]
+      @tictactoecubed().activate(false, false)
+      if tictactoe.won() || tictactoe.draw()
+        @tictactoecubed().activate(nextPlayer.isCurrentPlayer())
+      else
+        tictactoe.active(true) if nextPlayer.isCurrentPlayer()
+        tictactoe.highlight(true)
 
   start: ->
     @state('started')

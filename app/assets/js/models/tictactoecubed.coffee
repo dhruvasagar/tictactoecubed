@@ -27,30 +27,34 @@ class @TicTacToeCubed
   played: (tictactoe, indexOfTicToe) ->
     @game.step(@indexOf(tictactoe), indexOfTicToe)
 
-  activate: (flag = true, highlightflag = true) ->
+  activate: (flag = true, hlflag = true) ->
     for tictactoerow in @tictactoes()
       for tictactoe in tictactoerow
         unless tictactoe.won() || tictactoe.draw()
           tictactoe.active(flag)
-          tictactoe.highlight(highlightflag)
+          tictactoe.highlight(hlflag)
 
   winner_tic: ->
     for i in [0..2]
       if @tictactoes()[i][0].winner_tic() != null and @tictactoes()[i][0].winner_tic() == @tictactoes()[i][1].winner_tic() and @tictactoes()[i][1].winner_tic() == @tictactoes()[i][2].winner_tic()
         for j in [0..2]
           @tictactoes()[i][j].won(true)
+        @won(true)
         return @tictactoes()[i][0].winner_tic()
       if @tictactoes()[0][i].winner_tic() != null and @tictactoes()[0][i].winner_tic() == @tictactoes()[1][i].winner_tic() and @tictactoes()[1][i].winner_tic() == @tictactoes()[2][i].winner_tic()
         for j in [0..2]
           @tictactoes()[j][i].won(true)
+        @won(true)
         return @tictactoes()[0][i].winner_tic()
     if @tictactoes()[1][1].winner_tic() != null and @tictactoes()[0][0].winner_tic() == @tictactoes()[1][1].winner_tic() and @tictactoes()[1][1].winner_tic() == @tictactoes()[2][2].winner_tic()
       for i in [0..2]
         @tictactoes()[i][i].won(true)
+      @won(true)
       return @tictactoes()[1][1].winner_tic()
     if @tictactoes()[1][1].winner_tic() != null and @tictactoes()[0][2].winner_tic() == @tictactoes()[1][1].winner_tic() and @tictactoes()[1][1].winner_tic() == @tictactoes()[2][0].winner_tic()
       for i in [0..2]
         @tictactoes()[i][2-i].won(true)
+      @won(true)
       return @tictactoes()[1][1].winner_tic()
     null
 

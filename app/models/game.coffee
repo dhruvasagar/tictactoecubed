@@ -49,6 +49,10 @@ module.exports = exports = (Schema, Move, ChatMessage) ->
       # moves[moves.length-2].position[1].toString() )
   , 'Invalid Move'
 
+  Game.path('winner').validate (winner) ->
+    @players.indexOf(winner) >= 0
+  , 'Invalid Winner'
+
   Game.pre 'save', (next) ->
     if @players.length <= 1
       next()

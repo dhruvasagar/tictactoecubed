@@ -4,7 +4,7 @@ class @TicTacToe
     @game = game
     @draw = ko.observable(false)
     @won_x = ko.observable(false)
-    @won_y = ko.observable(false)
+    @won_o = ko.observable(false)
     @active = ko.observable(false)
     @highlight = ko.observable(false)
     @tictactoecubed = tictactoecubed
@@ -16,6 +16,9 @@ class @TicTacToe
 
     @isSolved = ko.computed =>
       @winner_tic() and @winner_tic().length == 1
+
+    @isWon = ko.computed =>
+      @won() and tictactoecubed.won()
 
   indexOf: (tictoe) ->
     for ticrow, i in @tictoes()
@@ -32,7 +35,7 @@ class @TicTacToe
     if tic == 'x'
       @won_x(true)
     else
-      @won_y(true)
+      @won_o(true)
 
   winner_tic: ->
     for i in [0..2]
