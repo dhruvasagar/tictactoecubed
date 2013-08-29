@@ -51,7 +51,9 @@ module.exports = exports = (server) ->
             game.moves.push
               user: socket.user_id
               position: move.position
-            game.winner = socket.user_id if move.game_won
+            if move.game_won
+              game.finish()
+              game.winner = socket.user_id
             game.save (err) ->
               unless err
                 # Send move to all except sender
