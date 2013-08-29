@@ -45,7 +45,8 @@ class @Game
             player.id() == move.user._id
           user_id_cache[move.user._id] = player
         @tictactoecubed().move(move.position[0], move.position[1], user_id_cache[move.user._id])
-      @start()
+
+    @start() if @state() == 'started'
 
     if socket
       socket.on 'connect', =>
