@@ -41,9 +41,8 @@ module.exports = exports = (server) ->
               message: message
             game.save (err) ->
               unless err
-                # Send message to everybody including sender
                 sio.sockets.in(socket.channel)
-                           .emit('chatMessage', socket.avatar, socket.user_name, message)
+                           .emit('chatMessage', socket.avatar, socket.user_name, game.chat_messages[game.chat_messages.length-1])
 
       socket.on 'move', (move) ->
         Game.findById socket.game_id, (err, game) ->

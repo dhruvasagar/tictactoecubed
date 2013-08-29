@@ -4,8 +4,9 @@ html(lang="en")
     title= title
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
-    != css('style')
+    != css("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css")
     != css("//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css")
+    != css('style')
     block stylesheets
 
     if currentUser
@@ -57,23 +58,24 @@ html(lang="en")
                 i.icon-fixed-width.icon-envelope
                 span Contact
     .container
-      .col-4.center
+      .col-md-4.center
         if flash
           .alert.alert-block(class=('alert-' + flash.type))
             button.close(type='button', data-dismiss='alert') &times;
             = flash.message
       block content
-    .navbar.navbar-fixed-bottom
-      p.navbar-text.text-center
+    .navbar.navbar-default.navbar-fixed-bottom
+      div.text-center
         span &copy; 
         a(href='http://tictactoecubed.com') TicTacToeCubed
         br
         span.
           Designed and built by <a href='http://twitter.com/dhruvasagar'
           target='_blank'>@dhruvasagar</a>
-    script(src="/js/jquery.js")
-    script(src="/js/knockout.js")
-    script(src="/js/bootstrap.js")
+    != js("//code.jquery.com/jquery.min.js")
+    != js("//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js")
+    != js("//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js")
+    != js("//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js")
     script(src="/socket.io/socket.io.js")
     != js('app')
     include ga

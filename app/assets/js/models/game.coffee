@@ -32,10 +32,7 @@ class @Game
 
     if game.chat_messages && game.chat_messages.length
       for message in game.chat_messages
-        @messages.push
-          avatar: message.user.avatar
-          message: message.message
-          username: message.user.name
+        @messages.push(new Message(message))
 
     if game.moves && game.moves.length
       user_id_cache = {}
@@ -66,11 +63,8 @@ class @Game
       socket.on 'playerJoined', (user) =>
         @join(user)
 
-      socket.on 'chatMessage', (avatar, username, message) =>
-        @messages.push
-          avatar: avatar
-          message: message
-          username: username
+      socket.on 'chatMessage', (avatar, user_name, message) =>
+        @messages.push(new Message(message, avatar, user_name))
 
       socket.on 'move', (move) =>
         @step(move.position[0], move.position[1], true)

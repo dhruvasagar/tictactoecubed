@@ -1,5 +1,5 @@
 .games(data-bind='foreach: filteredGames')
-  .well.game-card.col-4.pull-left(data-bind='click: showGame, css: state')
+  .well.game-card.col-md-4.pull-left(data-bind='click: showGame, css: state')
     a.close(href="#") &times;
     div
       .player.pull-left(data-bind="template: {name: 'playerTemplate', data: {join_url: join_url, player: player1()}}")

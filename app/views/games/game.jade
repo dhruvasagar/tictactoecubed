@@ -2,9 +2,9 @@ extends ../layouts/layout
 
 block content
   .row.mb20
-    .col-4(data-bind="if: player1")
+    .col-md-4(data-bind="if: player1")
       .well.player(data-bind="template: {name: 'playerTemplate', data: player1}, css: {turn: player1().turn}")
-    .col-4.game
+    .col-md-4.game
       .tictactoecubed(data-bind='with: tictactoecubed')
         .tictactoes(data-bind='foreach: tictactoes, css: {solved: isSolved}')
           .tictacrow(data-bind='foreach: $data')
@@ -16,9 +16,9 @@ block content
           .clearfix
         .clearfix
       include share
-    .col-4(data-bind="if: player2, visible: player2")
+    .col-md-4(data-bind="if: player2, visible: player2")
       .well.player(data-bind="template: {name: 'playerTemplate', data: player2}, css: {turn: player2().turn}")
-    .col-4(data-bind="ifnot: player2, visible: !player2()")
+    .col-md-4(data-bind="ifnot: player2, visible: !player2()")
       .well.player(data-bind="template: {name: 'playerBlankTemplate'}")
   .row
     #chatBox.well
@@ -48,6 +48,8 @@ block scripts
     legend Player 2
     a.btn.btn-primary.join(href='#', data-bind='click: $root.joinGame, css: {disabled: !$root.canJoin()}') Join
   script(type="text/html", id="messageTemplate")
+    .pull-right
+      span.text-muted(data-bind='text: timestamp')
     .pull-left
       img.avatar(data-bind='attr: {src: avatar}')
     .message.pull-left
@@ -58,6 +60,7 @@ block scripts
   != js('models/tictoe')
   != js('models/tictactoe')
   != js('models/tictactoecubed')
+  != js('models/message')
   != js('models/game')
   script(type="text/javascript")
     var socket = io.connect(location.host);
