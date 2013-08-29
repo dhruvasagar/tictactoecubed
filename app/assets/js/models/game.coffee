@@ -92,9 +92,9 @@ class @Game
           indexOfTicToe
         ]
 
+    prev_tictactoe = @tictactoecubed().tictactoes()[indexOfTicTacToe[0]][indexOfTicTacToe[1]]
     if @tictactoecubed().isSolved()
       prevPlayer.winner(true)
-      prev_tictactoe = @tictactoecubed().tictactoes()[indexOfTicTacToe[0]][indexOfTicTacToe[1]]
       prev_tictactoe.highlight(false)
     else
       nextPlayer.turn(true)
@@ -104,7 +104,9 @@ class @Game
       @tictactoecubed().activate(false, false)
       if tictactoe.won() || tictactoe.draw()
         @tictactoecubed().activate(nextPlayer.isCurrentPlayer())
+        tictactoe.highlight(false)
       else
+        prev_tictactoe.highlight(false) if prev_tictactoe.won() || prev_tictactoe.draw()
         tictactoe.active(true) if nextPlayer.isCurrentPlayer()
         tictactoe.highlight(true)
 

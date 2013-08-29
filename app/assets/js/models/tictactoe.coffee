@@ -2,7 +2,6 @@ class @TicTacToe
   constructor: (tictactoecubed, game)->
     @won = ko.observable(false)
     @game = game
-    @draw = ko.observable(false)
     @won_x = ko.observable(false)
     @won_o = ko.observable(false)
     @active = ko.observable(false)
@@ -14,11 +13,19 @@ class @TicTacToe
       [new TicToe(this, @game), new TicToe(this, @game), new TicToe(this, @game)]
     ]
 
-    @isSolved = ko.computed =>
-      @winner_tic() and @winner_tic().length == 1
+    @draw = ko.computed =>
+      return false if @won()
+      for ticrow in @tictoes()
+        for tictoe in ticrow
+          return false if tictoe.value() == ''
+      return true
 
     @isWon = ko.computed =>
-      @won() and tictactoecubed.won()
+      ( @won_x() && tictactoecubed.won_x() ) ||
+        ( @won_o() && tictactoecubed.won_o() )
+
+    @isSolved = ko.computed =>
+      @winner_tic() and @winner_tic().length == 1
 
   indexOf: (tictoe) ->
     for ticrow, i in @tictoes()
