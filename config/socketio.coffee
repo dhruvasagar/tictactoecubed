@@ -1,5 +1,4 @@
 io = require('socket.io')
-
 mongoose = require('mongoose')
 Game = mongoose.model('Game')
 User = mongoose.model('User')
