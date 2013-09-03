@@ -48,6 +48,7 @@ module.exports =
 
   index: (req, res) ->
     Game.find()
+        .sort('-updated_at')
         .populate('turn winner players')
         .exec (err, games) ->
           res.render 'games/index',

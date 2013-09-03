@@ -5,6 +5,10 @@ class Game
     @winner = ko.observable(game.winner)
     @moves = ko.observableArray(game.moves)
     @players = ko.observableArray([])
+    @updated_at = ko.observable(game.updated_at)
+
+    @when = ko.computed =>
+      moment(@updated_at()).fromNow()
 
     @url = ko.observable("/games/#{@id()}")
     @join_url = "#{@url()}/join"

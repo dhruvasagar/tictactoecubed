@@ -3,7 +3,7 @@ class @Message
     @avatar = ko.observable(message.user.avatar || avatar)
     @message = ko.observable(message.message)
     @username = ko.observable(message.user.name || user_name)
-    @created_at = new Date(message.created_at)
+    @created_at = ko.observable(message.created_at)
 
     @timestamp = ko.computed =>
-      moment(@created_at).fromNow()
+      moment(@created_at()).fromNow()

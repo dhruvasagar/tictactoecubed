@@ -1,0 +1,29 @@
+extends ../layouts/layout
+
+block content
+  h1 Your Games
+  .row
+    ul.nav.nav-tabs#games-tab
+      li(data-bind="css: {active: activeTab() == 'started'}")
+        a(href='#started', data-bind='click: tabClick') Started
+      li(data-bind="css: {active: activeTab() == 'waiting'}")
+        a(href='#waiting', data-bind='click: tabClick') Waiting
+      li(data-bind="css: {active: activeTab() == 'forfeited'}")
+        a(href='#forfeited', data-bind='click: tabClick') Forfeited
+      li(data-bind="css: {active: activeTab() == 'finished'}")
+        a(href='#finished', data-bind='click: tabClick') Finished
+      a.btn.btn-success.pull-right(href='/games/new')
+        i.icon-fixed-width.icon-plus
+        span New Game
+    .tab-content(style='padding-bottom: 80px;')
+      .tab-pane.active#started
+        include ../games/games
+
+block scripts
+  != js('models/player')
+  != js('models/games')
+  script(type='text/javascript')
+    var socket = io.connect(location.host);
+    var user = !{JSON.stringify(currentUser)};
+    var games = new Games(!{JSON.stringify(games)}, socket);
+    ko.applyBindings(games);

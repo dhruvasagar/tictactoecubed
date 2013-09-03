@@ -6,6 +6,9 @@
       .vs.pull-left VS
       .player.pull-left(data-bind="template: {name: 'playerTemplate', data: {join_url: join_url, player: player2()}}")
     .clear
+    .text-center
+      b Last Update: 
+      span.text-danger(data-bind='text: when')
     include share
 .clear
 

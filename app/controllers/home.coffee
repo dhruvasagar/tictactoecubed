@@ -29,8 +29,9 @@ module.exports =
   dashboard: (req, res) ->
     Game.find
       'players': req.session.currentUserId
+    .sort('-updated_at')
     .populate('winner players')
     .exec (err, games) ->
       if games
-        res.render 'games/index',
+        res.render 'home/dashboard',
           games: games
