@@ -6,4 +6,4 @@ class @Message
     @created_at = ko.observable(message.created_at)
 
     @timestamp = ko.computed =>
-      moment().zone(@created_at()).fromNow()
+      moment(@created_at()).fromNow()

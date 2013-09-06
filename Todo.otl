@@ -1,4 +1,17 @@
 Todo:
-	[_] Add player settings page.
-	[_] Add tour feature for user help - http://bootstraptour.com/.
-	[_] Add Fork me on Github Link from https://github.com/blog/273-github-ribbons.
+	[√] Turn based play
+	[√] Implement game rules
+	[√] 100% Social Integration
+		[√] Github
+		[√] Facebook
+		[√] Google Plus
+	[√] User Sessions
+	[√] Server side game move capturing
+	[√] Remote Player game with step replay
+	[_] Player Settings
+	[_] Player seeks & searches
+	[_] 50% Pages
+		[√] Rules 
+		[√] Contact
+		[_] Dashboard
+	[√] Add Copyright Footer
