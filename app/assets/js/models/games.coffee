@@ -8,7 +8,7 @@ class Game
     @updated_at = ko.observable(game.updated_at)
 
     @when = ko.computed =>
-      moment(@updated_at()).fromNow()
+      moment().zone(@updated_at()).fromNow()
 
     @url = ko.observable("/games/#{@id()}")
     @join_url = "#{@url()}/join"
